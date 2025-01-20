@@ -1,9 +1,10 @@
 import React, { useState } from "react";
+// import { CartContext } from '../context/CartContext';
 import "../index.css";
 
 const Product = (props) => {
   const { product, onUpdate } = props;
-  const { imgUrl, name, description, category, price, id } = product;
+  const { imgUrl, name, description, category, price, brand, id } = product;
 
   const [isEditing, setIsEditing] = useState(false);
   const [editData, setEditData] = useState({
@@ -11,6 +12,7 @@ const Product = (props) => {
     description,
     category,
     price,
+    brand,
   });
   const [isDeleting, setIsDeleting] = useState(false);
 
@@ -72,7 +74,10 @@ const Product = (props) => {
     }
   };
 
+  // const { addToCart } = useContext(CartContext);
+
   return (
+       
     <div className="product">
       {isEditing ? (
         <div>
@@ -96,6 +101,13 @@ const Product = (props) => {
             onChange={handleInputChange}
             placeholder="Category"
           />
+           <input
+            type="text"
+            name="brand"
+            value={editData.brand}
+            onChange={handleInputChange}
+            placeholder="Brand"
+          />
           <input
             type="number"
             name="price"
@@ -112,7 +124,9 @@ const Product = (props) => {
           <h4>{name}</h4>
           <p>{description}</p>
           <p>Category: {category}</p>
+          <p>Brand: {brand}</p>
           <h6>{price} $</h6>
+          {/* <button onClick={() => addToCart(product)}>Добавить в корзину</button> */}
           <button onClick={handleEditToggle}>Edit</button>
           <button onClick={handleDeleteProduct} disabled={isDeleting}>
             {isDeleting ? "Deleting..." : "Delete"}
@@ -120,6 +134,8 @@ const Product = (props) => {
         </div>
       )}
     </div>
+ 
+   
   );
 };
 

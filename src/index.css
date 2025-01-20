@@ -79,4 +79,20 @@ img {
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: #ccc;
+}
+.navigation a {
+  padding: 10px;
+  margin: 0 20px;
+}
+
+.search-container {
+  margin: 10px;
+}
+
+.search-input {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
 }
