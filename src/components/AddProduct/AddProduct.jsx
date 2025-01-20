@@ -77,7 +77,7 @@ const AddProduct = () => {
           onChange={(e) => setImgUrl(e.target.value)}
         />
 
-        <button type="submit">Add new product</button>
+        <button type="submit">Додати товар</button>
       </form>
     </div>
   );

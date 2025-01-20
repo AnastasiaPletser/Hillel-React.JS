@@ -1,10 +1,12 @@
-import React, { useState } from "react";
-// import { CartContext } from '../context/CartContext';
-import "../index.css";
+import React, { useState, useContext } from "react";
+import { CartContext } from '../../context/CartContext';
+import "../../index.css";
 
 const Product = (props) => {
   const { product, onUpdate } = props;
   const { imgUrl, name, description, category, price, brand, id } = product;
+
+  const { addToCart } = useContext(CartContext);
 
   const [isEditing, setIsEditing] = useState(false);
   const [editData, setEditData] = useState({
@@ -74,8 +76,6 @@ const Product = (props) => {
     }
   };
 
-  // const { addToCart } = useContext(CartContext);
-
   return (
        
     <div className="product">
@@ -122,14 +122,14 @@ const Product = (props) => {
         <div>
           <img src={imgUrl} alt={name} />
           <h4>{name}</h4>
-          <p>{description}</p>
-          <p>Category: {category}</p>
-          <p>Brand: {brand}</p>
-          <h6>{price} $</h6>
-          {/* <button onClick={() => addToCart(product)}>Добавить в корзину</button> */}
-          <button onClick={handleEditToggle}>Edit</button>
+          <p>Опис: {description}</p>
+          <p>Категорія: {category}</p>
+          <p>Бренд: {brand}</p>
+          <h6>Ціна: {price} $</h6>
+          <button onClick={() => addToCart(product)}>Додати у кошик</button>
+          <button onClick={handleEditToggle}>Pедагувати</button>
           <button onClick={handleDeleteProduct} disabled={isDeleting}>
-            {isDeleting ? "Deleting..." : "Delete"}
+            {isDeleting ? "Deleting..." : "Видалити"}
           </button>
         </div>
       )}

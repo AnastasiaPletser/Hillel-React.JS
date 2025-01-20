@@ -25,7 +25,7 @@ export default function AddProduct({ onAdd, onCancel }) {
 
   return (
     <form onSubmit={handleSubmit} className="add-product-form">
-      <h3>Add New Product</h3>
+      <h3>Додати товар</h3>
       <input
         type="text"
         name="name"
@@ -75,9 +75,9 @@ export default function AddProduct({ onAdd, onCancel }) {
         onChange={handleChange}
         placeholder="Image URL"
       />
-      <button type="submit">Add</button>
+      <button type="submit">Додати</button>
       <button type="button" onClick={onCancel}>
-        Cancel
+        Відхилити
       </button>
     </form>
   );

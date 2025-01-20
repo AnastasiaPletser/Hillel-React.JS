@@ -1,5 +1,6 @@
 import { useState, useCallback, useEffect } from "react";
-import Product from "../components/Product";
+import Product from "../components/Product/Product";
+// import ProductList from '../components/Product/ProductList';
 import Input from "../components/Input/Input"; 
 
 import "../index.css";
