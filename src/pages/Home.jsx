@@ -1,9 +1,11 @@
 import { useState, useCallback, useEffect } from "react";
 import Product from "../components/Product/Product";
+
 // import ProductList from '../components/Product/ProductList';
 import Input from "../components/Input/Input"; 
 
 import "../index.css";
+
 
 export default function Home() {
   const [products, setProducts] = useState([]);
@@ -40,8 +42,7 @@ export default function Home() {
       setFilteredProducts(data); 
     } catch (error) {
       console.error("Error fetching products:", error);
-      setError(error.message);
-      
+      setError(error.message);  
     } finally {
       setIsLoading(false);
     }

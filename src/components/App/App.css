@@ -58,6 +58,7 @@ background-color: #0056b3;
 
 .container {
 width: 50%;
+padding: 20px;
 margin: 0 auto;
 display: flex;
 flex-direction: column;

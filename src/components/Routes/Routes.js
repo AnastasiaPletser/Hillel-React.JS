@@ -24,6 +24,7 @@ export default function AppRoutes() {
       {/* <Route path="/add-product" element={<AddProductForm />} /> */}
       <Route path="/add-product" element={<AddProduct />} />
       <Route path="*" element={<PageNotFound />} />
+
     </Routes>
   );
 }

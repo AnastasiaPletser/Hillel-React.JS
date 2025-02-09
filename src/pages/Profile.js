@@ -4,7 +4,7 @@ import { AuthContext } from "../context/AuthContext";
 const Profile = () => {
   const { user } = useContext(AuthContext);
   const [profile, setProfile] = useState({
-    username: "Пользователь",
+    username: "Користувач",
     email: "user@example.com",
   });
 
@@ -12,14 +12,13 @@ const Profile = () => {
 
   const handleSave = () => {
     setEditMode(false);
-    // Здесь можно отправить изменения на сервер
   };
 
   return (
     <div>
       <h2>Профиль</h2>
       <div>
-        <label>Имя пользователя:</label>
+        <label>Ім'я користувача:</label>
         {editMode ? (
           <input
             type="text"
@@ -43,9 +42,9 @@ const Profile = () => {
         )}
       </div>
       {editMode ? (
-        <button onClick={handleSave}>Сохранить</button>
+        <button onClick={handleSave}>Зберегти</button>
       ) : (
-        <button onClick={() => setEditMode(true)}>Редактировать</button>
+        <button onClick={() => setEditMode(true)}>Редагувати</button>
       )}
     </div>
   );

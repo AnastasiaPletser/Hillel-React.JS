@@ -3,10 +3,17 @@ import { CartContext } from "../../context/CartContext";
 import CartItem from "./CartItem";
 import styles from "./Cart.module.scss";
 import { useNavigate } from "react-router-dom";
+import CartSummary from "../../components/Cart/CartSummary";
 
 const Cart = () => {
   const { cartItems, clearCart } = useContext(CartContext);
   const navigate = useNavigate();
+
+  const handleCheckout = () => {
+    alert("Замовлення оформлено!");
+    clearCart();
+    navigate("/");
+  };
 
   return (
     <div className={styles.cart}>
@@ -18,10 +25,8 @@ const Cart = () => {
           {cartItems.map((item) => (
             <CartItem key={item.id} item={item} />
           ))}
-          <button className={styles.clearButton} onClick={clearCart}>
-            Очистити кошик
-          </button>
-          <button className={styles.checkoutButton} onClick={() => alert("Замовлення оформлено!")}>
+          <CartSummary />
+          <button className={styles.checkoutButton} onClick={handleCheckout}>
             Оформити замовлення
           </button>
           <button className={styles.backButton} onClick={() => navigate("/")}>

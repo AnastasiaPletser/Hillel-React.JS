@@ -1,17 +1,17 @@
 import React from "react";
-// import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { AuthProvider } from "../../context/AuthContext";
 import Profile from "../../pages/Profile";
 import Login from "../../components/Auth/Login";
 import Users from "../../components/Admin/Users";
 // import Products from "./components/Admin/Products";
 import RequireAuth from "../../components/Auth/RequireAuth";
+import ProductDetails from "../../pages/ProductDetails/ProductDetails"; 
 
 // import "./App.module.scss";
 import "./App.css";
 import Header from "../../pages/Header/Header";
 import Footer from "../../pages/Footer/Footer";
-import { Route, Routes } from "react-router-dom";
 import Home from "../../pages/Home";
 import About from "../../pages/About";
 import Contact from "../../pages/Contact";
@@ -33,6 +33,7 @@ export default function App() {
             <div className="container">
               <Routes>
                 <Route path="/" element={<Home />} />
+                <Route path="/product/:id" element={<ProductDetails />} /> {/* Новый маршрут */}
                 <Route path="/about" element={<About />} />
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/admin-panel" element={<AdminPanel />} />

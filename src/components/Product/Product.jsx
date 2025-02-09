@@ -1,5 +1,6 @@
 import React, { useState, useContext } from "react";
-import { CartContext } from '../../context/CartContext';
+import { CartContext } from "../../context/CartContext";
+import { useNavigate } from "react-router-dom";
 import "../../index.css";
 
 const Product = (props) => {
@@ -7,6 +8,8 @@ const Product = (props) => {
   const { imgUrl, name, description, category, price, brand, id } = product;
 
   const { addToCart } = useContext(CartContext);
+
+  const navigate = useNavigate();
 
   const [isEditing, setIsEditing] = useState(false);
   const [editData, setEditData] = useState({
@@ -17,6 +20,10 @@ const Product = (props) => {
     brand,
   });
   const [isDeleting, setIsDeleting] = useState(false);
+
+  const handleClick = () => {
+    navigate(`/product/${product.id}`); // Переход на страницу товара
+  };
 
   const handleEditToggle = () => {
     setEditData({ name, description, category, price });
@@ -77,7 +84,6 @@ const Product = (props) => {
   };
 
   return (
-       
     <div className="product">
       {isEditing ? (
         <div>
@@ -101,7 +107,7 @@ const Product = (props) => {
             onChange={handleInputChange}
             placeholder="Category"
           />
-           <input
+          <input
             type="text"
             name="brand"
             value={editData.brand}
@@ -120,7 +126,13 @@ const Product = (props) => {
         </div>
       ) : (
         <div>
-          <img src={imgUrl} alt={name} />
+          <img
+            src={imgUrl}
+            alt={name}
+            className="product-card__image"
+            onClick={handleClick}
+            style={{ cursor: "pointer" }}
+          />
           <h4>{name}</h4>
           <p>Опис: {description}</p>
           <p>Категорія: {category}</p>
@@ -134,8 +146,6 @@ const Product = (props) => {
         </div>
       )}
     </div>
- 
-   
   );
 };
 

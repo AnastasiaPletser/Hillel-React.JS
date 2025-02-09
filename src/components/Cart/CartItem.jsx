@@ -10,7 +10,7 @@ const CartItem = ({ item }) => {
       <img src={item.imgUrl} alt={item.name} className={styles.itemImage} />
       <div className={styles.itemDetails}>
         <h3>{item.name}</h3>
-        <p>Ціна: {item.price * item.quantity} грн</p>
+        <p>Вартість: {item.price * item.quantity}грн.</p>
         <div className={styles.controls}>
           <button onClick={() => decreaseQuantity(item.id)}>-</button>
           <span>{item.quantity}</span>

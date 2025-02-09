@@ -1,12 +1,12 @@
 import React from 'react';
 import Cart from '../components/Cart/Cart';
-import CartSummary from '../components/Cart/CartSummary';
+// import CartSummary from '../components/Cart/CartSummary';
 
 const CartPage = () => {
   return (
     <div>
       <Cart />
-      <CartSummary />
+      {/* <CartSummary /> */}
     </div>
   );
 };
