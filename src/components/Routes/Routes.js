@@ -6,7 +6,7 @@ import Contact from "../../pages/Contact";
 import PageNotFound from "../../pages/PageNotFound";
 
 import "../../components/App/App.css";
-import Admin from "../../pages/Admin";
+import AdminPanel from "../../components/Admin/AdminPanel";
 import Login from "../../pages/Login";
 import AddProduct from "../AddProduct/AddProduct";
 // import AddProductForm from "../AddProduct/AddProductForm";
@@ -18,7 +18,7 @@ export default function AppRoutes() {
       <Route path="/" element={<Home />} />
       <Route path="/about" element={<About />} />
       <Route path="/contact" element={<Contact />} />
-      <Route path="/admin" element={<Admin />} />
+      <Route path="/admin-panel" element={<AdminPanel />} />
 
       <Route path="/login" element={<Login />} />
       {/* <Route path="/add-product" element={<AddProductForm />} /> */}

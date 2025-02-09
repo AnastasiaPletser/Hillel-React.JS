@@ -38,35 +38,35 @@ const AddProduct = () => {
 
   return (
     <div className="add-product">
-      <h1>Add new post</h1>
+      <h1>Додати новий товар</h1>
       <form onSubmit={handleSubmitForm} className="form">
         <input
           type="text"
-          placeholder="Name"
+          placeholder="Назва"
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
         <input
           type="text"
-          placeholder="Description"
+          placeholder="Опис"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />
         <input
           type="text"
-          placeholder="Category"
+          placeholder="Категорія"
           value={category}
           onChange={(e) => setCategory(e.target.value)}
         />
         <input
           type="text"
-          placeholder="Brand"
+          placeholder="Бренд"
           value={brand}
           onChange={(e) => setBrand(e.target.value)}
         />
         <input
           type="text"
-          placeholder="Price"
+          placeholder="Ціна"
           value={price}
           onChange={(e) => setPrice(e.target.value)}
         />

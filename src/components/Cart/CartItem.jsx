@@ -1,15 +1,25 @@
-import React, { useContext } from 'react';
-import { CartContext } from '../../context/CartContext';
+import React, { useContext } from "react";
+import { CartContext } from "../../context/CartContext";
+import styles from "./Cart.module.scss";
 
 const CartItem = ({ item }) => {
-  const { removeFromCart } = useContext(CartContext);
+  const { increaseQuantity, decreaseQuantity, removeFromCart } = useContext(CartContext);
 
   return (
-    <div>
-      <p>{item.name}</p>
-      <p>Кількість: {item.quantity}</p>
-      <p>Ціна: {item.price * item.quantity}₽</p>
-      <button onClick={() => removeFromCart(item.id)}>Видалити</button>
+    <div className={styles.cartItem}>
+      <img src={item.imgUrl} alt={item.name} className={styles.itemImage} />
+      <div className={styles.itemDetails}>
+        <h3>{item.name}</h3>
+        <p>Ціна: {item.price * item.quantity} грн</p>
+        <div className={styles.controls}>
+          <button onClick={() => decreaseQuantity(item.id)}>-</button>
+          <span>{item.quantity}</span>
+          <button onClick={() => increaseQuantity(item.id)}>+</button>
+        </div>
+        <button className={styles.removeButton} onClick={() => removeFromCart(item.id)}>
+          Видалити
+        </button>
+      </div>
     </div>
   );
 };

@@ -1,6 +1,8 @@
+import styles from "./Footer.module.scss";
+
 function Footer() {
     return (
-      <footer className="footer">
+      <footer className={styles.footer}>
         <div className="footer-description">
           <span>магазин Книгарня</span>
         <span>
