@@ -2,31 +2,23 @@ import React, { useState, useContext } from "react";
 import { CartContext } from "../../context/CartContext";
 import { useNavigate } from "react-router-dom";
 import "../../index.css";
+// import "../Product/Product.scss";
 
-const Product = (props) => {
-  const { product, onUpdate } = props;
+const Product = ({ product, onUpdate }) => {
   const { imgUrl, name, description, category, price, brand, id } = product;
-
   const { addToCart } = useContext(CartContext);
-
   const navigate = useNavigate();
 
   const [isEditing, setIsEditing] = useState(false);
-  const [editData, setEditData] = useState({
-    name,
-    description,
-    category,
-    price,
-    brand,
-  });
+  const [editData, setEditData] = useState({ imgUrl, name, description, category, price, brand });
   const [isDeleting, setIsDeleting] = useState(false);
 
   const handleClick = () => {
-    navigate(`/product/${product.id}`); // Переход на страницу товара
+    navigate(`/product/${id}`);
   };
 
   const handleEditToggle = () => {
-    setEditData({ name, description, category, price });
+    setEditData({ imgUrl, name, description, category, price, brand });
     setIsEditing((prev) => !prev);
   };
 
@@ -37,112 +29,77 @@ const Product = (props) => {
 
   const handleSaveChanges = async () => {
     try {
-      const res = await fetch(
-        `https://64b70476df0839c97e165d10.mockapi.io/api/id/products/${id}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(editData),
-        }
-      );
-      if (!res.ok) {
-        throw new Error("Failed to update product");
-      }
-      const data = await res.json();
-      console.log("Updated product:", data);
+      const res = await fetch(`https://64b70476df0839c97e165d10.mockapi.io/api/id/products/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(editData),
+      });
+      if (!res.ok) throw new Error("Помилка оновлення товару");
+      await res.json();
       await onUpdate();
       setIsEditing(false);
     } catch (error) {
-      console.error("Error updating product:", error.message);
-      alert("Failed to save changes. Please try again.");
+      console.error("Помилка оновлення:", error.message);
+      alert("Не вдалося зберегти зміни. Спробуйте ще раз.");
     }
   };
 
   const handleDeleteProduct = async () => {
     setIsDeleting(true);
     try {
-      const res = await fetch(
-        `https://64b70476df0839c97e165d10.mockapi.io/api/id/products/${id}`,
-        {
-          method: "DELETE",
-        }
-      );
-      if (!res.ok) {
-        throw new Error("Failed to delete product");
-      }
-      const data = await res.json();
-      console.log("Deleted product:", data);
+      const res = await fetch(`https://64b70476df0839c97e165d10.mockapi.io/api/id/products/${id}`, {
+        method: "DELETE",
+      });
+      if (!res.ok) throw new Error("Помилка видалення товару");
+      await res.json();
       await onUpdate();
     } catch (error) {
-      console.error("Error deleting product:", error.message);
-      alert("Failed to delete product. Please try again.");
+      console.error("Помилка видалення:", error.message);
+      alert("Не вдалося видалити товар. Спробуйте ще раз.");
     } finally {
       setIsDeleting(false);
     }
   };
 
   return (
-    <div className="product">
+    <div className="product-card">
       {isEditing ? (
-        <div>
+        <div className="edit-form">
+          <img src={editData.imgUrl} alt="Preview" className="edit-image-preview" />
           <input
             type="text"
-            name="name"
-            value={editData.name}
+            name="imgUrl"
+            value={editData.imgUrl}
             onChange={handleInputChange}
-            placeholder="Name"
+            placeholder="URL зображення"  
           />
-          <textarea
-            name="description"
-            value={editData.description}
-            onChange={handleInputChange}
-            placeholder="Description"
-          />
-          <input
-            type="text"
-            name="category"
-            value={editData.category}
-            onChange={handleInputChange}
-            placeholder="Category"
-          />
-          <input
-            type="text"
-            name="brand"
-            value={editData.brand}
-            onChange={handleInputChange}
-            placeholder="Brand"
-          />
-          <input
-            type="number"
-            name="price"
-            value={editData.price}
-            onChange={handleInputChange}
-            placeholder="Price"
-          />
-          <button onClick={handleSaveChanges}>Save</button>
-          <button onClick={handleEditToggle}>Cancel</button>
+          <input type="text" name="name" value={editData.name} onChange={handleInputChange} placeholder="Назва" />
+          <textarea name="description" value={editData.description} onChange={handleInputChange} placeholder="Опис" />
+          <input type="text" name="category" value={editData.category} onChange={handleInputChange} placeholder="Рік видання" />
+          <input type="text" name="brand" value={editData.brand} onChange={handleInputChange} placeholder="Автор" />
+          <input type="number" name="price" value={editData.price} onChange={handleInputChange} placeholder="Ціна" />
+          <div className="edit-buttons">
+            <button onClick={handleSaveChanges}>Зберегти</button>
+            <button onClick={handleEditToggle}>Скасувати</button>
+          </div>
         </div>
       ) : (
-        <div>
-          <img
-            src={imgUrl}
-            alt={name}
-            className="product-card__image"
-            onClick={handleClick}
-            style={{ cursor: "pointer" }}
-          />
-          <h4>{name}</h4>
-          <p>Опис: {description}</p>
-          <p>Категорія: {category}</p>
-          <p>Бренд: {brand}</p>
-          <h6>Ціна: {price} $</h6>
-          <button onClick={() => addToCart(product)}>Додати у кошик</button>
-          <button onClick={handleEditToggle}>Pедагувати</button>
-          <button onClick={handleDeleteProduct} disabled={isDeleting}>
-            {isDeleting ? "Deleting..." : "Видалити"}
-          </button>
+        <div className="product-content">
+          <img src={imgUrl} alt={name} className="product-card__image" onClick={handleClick} />
+          <div className="product-info">
+            {/* <h4>{name}</h4> */}
+            <p>Автор: {brand}</p>
+            {/* <p>Опис: {description}</p> */}
+            <p>Рік видання: {category}</p>
+            <h6>Ціна: {price} грн.</h6>
+          </div>
+          <div className="product-buttons">
+            <button className="add-cart-btn" onClick={() => addToCart(product)}>Додати у кошик</button>
+            <button className="edit-btn" onClick={handleEditToggle}>Редагувати</button>
+            <button className="delete-btn" onClick={handleDeleteProduct} disabled={isDeleting}>
+              {isDeleting ? "Видаляю..." : "Видалити"}
+            </button>
+          </div>
         </div>
       )}
     </div>

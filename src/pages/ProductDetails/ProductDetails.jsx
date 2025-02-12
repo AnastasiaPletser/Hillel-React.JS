@@ -107,10 +107,11 @@ export default function ProductDetails() {
 
       <div className="product-info">
         <h1>{product.name}</h1>
-        <p>Опис: {description}</p>
-        <p>Категорія: {category}</p>
-        <p>Бренд: {brand}</p>
-        <h6>Ціна: {price} грн</h6>
+        <p>Автор: {product.brand}</p>
+        <p>Рік видання: {product.category}</p>
+        <p>Опис: {product.description}</p>
+        
+        {/* <h6>Ціна: {product.price} грн</h6> */}
 
         <p className="product-details__description">{product.description}</p>
         <p className="product-details__price">{product.price} грн.</p>

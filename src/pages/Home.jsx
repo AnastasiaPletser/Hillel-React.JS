@@ -1,6 +1,6 @@
 import { useState, useCallback, useEffect } from "react";
 import Product from "../components/Product/Product";
-
+import ImageSlider from "../components/ImageSlider/ImageSlider";
 // import ProductList from '../components/Product/ProductList';
 import Input from "../components/Input/Input"; 
 
@@ -92,6 +92,8 @@ export default function Home() {
 
   return (
     <>
+    <div className="home">
+    <ImageSlider />
     <div className="main-content"> 
     <div className="aside">
     <div>
@@ -100,7 +102,7 @@ export default function Home() {
           onClick={() => setIsAdding(true)}
           disabled={isLoading}
         >
-          Add Product
+          Додати товар
         </button>
       </div>
 
@@ -114,12 +116,12 @@ export default function Home() {
       </div>
       <div>
            <div className="search-container">
-          <p>Sort by:</p>
+          <p>Фільтри:</p>
           <select value={sort} onChange={(e) => setSort(e.target.value)}>
-            <option value="name">Name</option>
-            <option value="category">Category</option>
-            <option value="price">Price</option>
-            <option value="brand">Brand</option>
+            <option value="name">Назва</option>
+            <option value="category">Рік видання</option>
+            <option value="price">Ціна</option>
+            <option value="brand">Автор</option>
           </select>
         
         <div>
@@ -180,7 +182,7 @@ export default function Home() {
           Next page
         </button>
       </div>
-   
+   </div>
     </>
   );
 }
