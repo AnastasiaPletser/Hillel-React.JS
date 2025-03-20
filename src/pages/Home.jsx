@@ -119,16 +119,16 @@ export default function Home() {
           <p>Фільтри:</p>
           <select value={sort} onChange={(e) => setSort(e.target.value)}>
             <option value="name">Назва</option>
-            <option value="category">Рік видання</option>
+            <option value="year">Рік видання</option>
             <option value="price">Ціна</option>
-            <option value="brand">Автор</option>
+            <option value="author">Автор</option>
           </select>
         
         <div>
-        <p>Order by:</p>
+        <p>Сортування:</p>
           <select value={order} onChange={(e) => setOrder(e.target.value)}>
-            <option value="asc">Flow low</option>
-            <option value="desc">Flow hight</option>
+            <option value="asc">За зростанням</option>
+            <option value="desc">За спаданням</option>
           </select>
          </div> 
         </div>
@@ -191,8 +191,8 @@ function AddProductForm({ onAdd, onCancel }) {
   const [formData, setFormData] = useState({
     name: "",
     description: "",
-    category: "",
-    brand: "",
+    year: "",
+    author: "",
     price: "",
     imgUrl: "",
   });
@@ -213,13 +213,13 @@ function AddProductForm({ onAdd, onCancel }) {
 
   return (
     <form onSubmit={handleSubmit} className="add-product-form">
-      <h3>Add New Product</h3>
+      <h3>Додати товар</h3>
       <input
         type="text"
         name="name"
         value={formData.name}
         onChange={handleChange}
-        placeholder="Name"
+        placeholder="Назва"
         maxLength={50}
         required
       />
@@ -227,23 +227,23 @@ function AddProductForm({ onAdd, onCancel }) {
         name="description"
         value={formData.description}
         onChange={handleChange}
-        placeholder="Description"
+        placeholder="Опис"
         maxLength={200}
       />
       <input
         type="text"
-        name="category"
-        value={formData.category}
+        name="year"
+        value={formData.year}
         onChange={handleChange}
-        placeholder="Category"
+        placeholder="Рік видання"
         maxLength={50}
       />
       <input
         type="text"
-        name="brand"
-        value={formData.brand}
+        name="author"
+        value={formData.author}
         onChange={handleChange}
-        placeholder="Brand"
+        placeholder="Автор"
         maxLength={50}
       />
       <input
@@ -251,7 +251,7 @@ function AddProductForm({ onAdd, onCancel }) {
         name="price"
         value={formData.price}
         onChange={handleChange}
-        placeholder="Price"
+        placeholder="Ціна"
         min="0"
         step="0.01"
         required
@@ -261,11 +261,11 @@ function AddProductForm({ onAdd, onCancel }) {
         name="imgUrl"
         value={formData.imgUrl}
         onChange={handleChange}
-        placeholder="Image URL"
+        placeholder="Посилання на картинку"
       />
-      <button type="submit">Add</button>
+      <button type="submit">Додати</button>
       <button type="button" onClick={onCancel}>
-        Cancel
+        Скасувати
       </button>
     </form>
   );

@@ -4,7 +4,7 @@ export default function AddProduct({ onAdd, onCancel }) {
   const [formData, setFormData] = useState({
     name: "",
     description: "",
-    category: "",
+    year: "",
     price: "",
     imgUrl: "",
   });
@@ -31,7 +31,7 @@ export default function AddProduct({ onAdd, onCancel }) {
         name="name"
         value={formData.name}
         onChange={handleChange}
-        placeholder="Name"
+        placeholder="Назва"
         maxLength={50}
         required
       />
@@ -39,23 +39,23 @@ export default function AddProduct({ onAdd, onCancel }) {
         name="description"
         value={formData.description}
         onChange={handleChange}
-        placeholder="Description"
+        placeholder="Опис"
         maxLength={200}
       />
       <input
         type="text"
-        name="category"
-        value={formData.category}
+        name="year"
+        value={formData.year}
         onChange={handleChange}
-        placeholder="Category"
+        placeholder="Рік видання"
         maxLength={50}
       />
       <input
         type="text"
-        name="brand"
-        value={formData.brand}
+        name="author"
+        value={formData.author}
         onChange={handleChange}
-        placeholder="Brand"
+        placeholder="Автор"
         maxLength={50}
       />
       <input
@@ -63,7 +63,7 @@ export default function AddProduct({ onAdd, onCancel }) {
         name="price"
         value={formData.price}
         onChange={handleChange}
-        placeholder="Price"
+        placeholder="Ціна"
         min="0"
         step="0.01"
         required
@@ -73,7 +73,7 @@ export default function AddProduct({ onAdd, onCancel }) {
         name="imgUrl"
         value={formData.imgUrl}
         onChange={handleChange}
-        placeholder="Image URL"
+        placeholder="URL картинки"
       />
       <button type="submit">Додати</button>
       <button type="button" onClick={onCancel}>

@@ -4,9 +4,9 @@ import "./AddProduct.css";
 const AddProduct = () => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [category, setCategory] = useState("");
+  const [year, setYear] = useState("");
   const [price, setPrice] = useState("");
-  const [brand, setBrand] = useState("");
+  const [author, setAuthor] = useState("");
   const [imgUrl, setImgUrl] = useState("");
 
   const handleSubmitForm = async (e) => {
@@ -15,10 +15,10 @@ const AddProduct = () => {
     const newProduct = {
       name,
       description,
-      category,
+      year,
       price,
       imgUrl,
-      brand,
+      author,
     };
 
     const responce = await fetch(
@@ -55,14 +55,14 @@ const AddProduct = () => {
         <input
           type="text"
           placeholder="Категорія"
-          value={category}
-          onChange={(e) => setCategory(e.target.value)}
+          value={year}
+          onChange={(e) => setYear(e.target.value)}
         />
         <input
           type="text"
           placeholder="Бренд"
-          value={brand}
-          onChange={(e) => setBrand(e.target.value)}
+          value={author}
+          onChange={(e) => setAuthor(e.target.value)}
         />
         <input
           type="text"

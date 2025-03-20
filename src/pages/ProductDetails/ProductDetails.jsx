@@ -4,7 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import "../ProductDetails/ProductDetails.scss";
 
 export default function ProductDetails() {
-  const { name, description, category, price, brand, id } = useParams(); // Получаем ID товара из URL
+  const { name, description, year, price, author, id } = useParams(); // Получаем ID товара из URL
   const navigate = useNavigate();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -107,8 +107,8 @@ export default function ProductDetails() {
 
       <div className="product-info">
         <h1>{product.name}</h1>
-        <p>Автор: {product.brand}</p>
-        <p>Рік видання: {product.category}</p>
+        <p>Автор: {product.author}</p>
+        <p>Рік видання: {product.year}</p>
         <p>Опис: {product.description}</p>
         
         {/* <h6>Ціна: {product.price} грн</h6> */}

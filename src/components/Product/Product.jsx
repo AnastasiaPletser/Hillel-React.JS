@@ -5,12 +5,12 @@ import "../../index.css";
 // import "../Product/Product.scss";
 
 const Product = ({ product, onUpdate }) => {
-  const { imgUrl, name, description, category, price, brand, id } = product;
+  const { imgUrl, name, description, year, price, author, id } = product;
   const { addToCart } = useContext(CartContext);
   const navigate = useNavigate();
 
   const [isEditing, setIsEditing] = useState(false);
-  const [editData, setEditData] = useState({ imgUrl, name, description, category, price, brand });
+  const [editData, setEditData] = useState({ imgUrl, name, description, year, price, author });
   const [isDeleting, setIsDeleting] = useState(false);
 
   const handleClick = () => {
@@ -18,7 +18,7 @@ const Product = ({ product, onUpdate }) => {
   };
 
   const handleEditToggle = () => {
-    setEditData({ imgUrl, name, description, category, price, brand });
+    setEditData({ imgUrl, name, description, year, price, author });
     setIsEditing((prev) => !prev);
   };
 
@@ -75,8 +75,8 @@ const Product = ({ product, onUpdate }) => {
           />
           <input type="text" name="name" value={editData.name} onChange={handleInputChange} placeholder="Назва" />
           <textarea name="description" value={editData.description} onChange={handleInputChange} placeholder="Опис" />
-          <input type="text" name="category" value={editData.category} onChange={handleInputChange} placeholder="Рік видання" />
-          <input type="text" name="brand" value={editData.brand} onChange={handleInputChange} placeholder="Автор" />
+          <input type="text" name="year" value={editData.year} onChange={handleInputChange} placeholder="Рік видання" />
+          <input type="text" name="author" value={editData.author} onChange={handleInputChange} placeholder="Автор" />
           <input type="number" name="price" value={editData.price} onChange={handleInputChange} placeholder="Ціна" />
           <div className="edit-buttons">
             <button onClick={handleSaveChanges}>Зберегти</button>
@@ -88,9 +88,9 @@ const Product = ({ product, onUpdate }) => {
           <img src={imgUrl} alt={name} className="product-card__image" onClick={handleClick} />
           <div className="product-info">
             {/* <h4>{name}</h4> */}
-            <p>Автор: {brand}</p>
+            <p>Автор: {author}</p>
             {/* <p>Опис: {description}</p> */}
-            <p>Рік видання: {category}</p>
+            <p>Рік видання: {year}</p>
             <h6>Ціна: {price} грн.</h6>
           </div>
           <div className="product-buttons">
