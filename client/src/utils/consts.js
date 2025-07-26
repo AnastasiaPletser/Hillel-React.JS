@@ -1,0 +1,13 @@
+export const ADMIN_ROUTE = '/admin'
+export const LOGIN_ROUTE = '/login'
+export const SHOP_ROUTE = '/shop'
+export const REGISTRATION_ROUTE = '/registration'
+export const CONTACT_ROUTE = '/Contact'
+export const ADD_PRODUCT_ROUTE = '/AddProduct'
+export const PRODUCT_DETAILS_ROUTE = '/product'
+export const CART_PAGE_ROUTE = '/cart'
+export const ABOUT_ROUTE = '/about'
+export const HOME_ROUTE = '/'
+export const PAGE_NOT_FOUND_ROUTE = '*'
+export const AUTH_ROUTE = '/auth'
+
