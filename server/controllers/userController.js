@@ -16,11 +16,11 @@ class UserController {
     async registration(req, res, next) {
         const {email, password, role} = req.body
         if (!email || !password) {
-            return next(ApiError.badRequest('Некорректный email или password'))
+            return next(ApiError.badRequest('Некоректний email або password'))
         }
         const candidate = await User.findOne({where: {email}})
         if (candidate) {
-            return next(ApiError.badRequest('Пользователь с таким email уже существует'))
+            return next(ApiError.badRequest('Користувач із таким email вже існує'))
         }
         const hashPassword = await bcrypt.hash(password, 5)
         const user = await User.create({email, role, password: hashPassword})
@@ -33,11 +33,11 @@ class UserController {
         const {email, password} = req.body
         const user = await User.findOne({where: {email}})
         if (!user) {
-            return next(ApiError.internal('Пользователь не найден'))
+            return next(ApiError.internal('Користувача не знайдено'))
         }
         let comparePassword = bcrypt.compareSync(password, user.password)
         if (!comparePassword) {
-            return next(ApiError.internal('Указан неверный пароль'))
+            return next(ApiError.internal('Вказано неправильний пароль'))
         }
         const token = generateJwt(user.id, user.email, user.role)
         return res.json({token})
@@ -49,5 +49,4 @@ class UserController {
     }
 }
 
-// module.exports = new UserController()
 export default new UserController()
