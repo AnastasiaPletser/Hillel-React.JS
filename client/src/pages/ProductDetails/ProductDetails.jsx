@@ -2,47 +2,34 @@ import React, { useEffect, useState, useContext } from "react";
 import { CartContext } from "../../context/CartContext";
 import { useParams, useNavigate } from "react-router-dom";
 import "../ProductDetails/ProductDetails.scss";
+import { useQuery } from '@apollo/client';
+import { GET_PRODUCT } from "../../graphql/query.js";
 
 export default function ProductDetails() {
-  const { name, description, year, price, author, id } = useParams(); // Получаем ID товара из URL
+  // const { name, description, year, price, author, id } = useParams(); // Получаем ID товара из URL
   const navigate = useNavigate();
-  const [product, setProduct] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  // const [product, setProduct] = useState(null);
+  // const [loading, setLoading] = useState(true);
+  // const [error, setError] = useState(null);
   const { addToCart } = useContext(CartContext);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-  useEffect(() => {
-    const fetchProduct = async () => {
-      try {
-        const response = await fetch(
-          `https://64b70476df0839c97e165d10.mockapi.io/api/id/products/${id}`
-        );
-        if (!response.ok) {
-          throw new Error("Помилка завантаження товару");
-        }
-        const data = await response.json();
+  const {id} = useParams();
 
-        const backupImages = [
-          "https://blog.yakaboo.ua/wp-content/uploads/2019/08/exeter-book.jpg",
-          "https://huss.com.ua/wp-content/uploads/2024/09/alexander-grey-eMP4sYPJ9x0-unsplash.jpg",
-        ];
+   const {loading, error, data} = useQuery(GET_PRODUCT, {
+    variables: {
+      id: id 
+    }
+   })
 
-        const images =
-          data.images && data.images.length > 0
-            ? data.images
-            : [data.imgUrl, ...backupImages];
+   
+  if (loading) return <p>Loading...</p>;
+    if (error) return <p>Error... :</p>;
+    
+    const {product = []} = data
+    //  const { product } = data || {};
+console.log("88888888", product)
 
-        setProduct({ ...data, images });
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchProduct();
-  }, [id]);
 
   const handleGoBack = () => {
     navigate(-1);
@@ -75,7 +62,7 @@ export default function ProductDetails() {
       </button>
       <br></br>
 
-      <div className="product-gallery">
+      {/* <div className="product-gallery">
         <div className="thumbnail-container">
           {product.images.map((image, index) => (
             <img
@@ -103,7 +90,7 @@ export default function ProductDetails() {
             ❯
           </button>
         </div>
-      </div>
+      </div> */}
 
       <div className="product-info">
         <h1>{product.name}</h1>

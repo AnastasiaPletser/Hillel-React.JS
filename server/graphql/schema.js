@@ -1,3 +1,4 @@
+
 import { gql } from 'apollo-server-express';
 
 export const typeDefs = gql`
@@ -7,9 +8,11 @@ export const typeDefs = gql`
     id: ID
     name: String!
     description: String
-    price: Float
-    imgUrl: [String]
     year: Int
+    price: Float!
+    author: String
+    imgUrl: [String]
+   
     authorId: Int
   }
 
@@ -22,13 +25,14 @@ export const typeDefs = gql`
     name: String!
     description: String
     price: Float
-    imgUrl: [String]!
     year: Int
+    author: String
+    imgUrl: [String]
     authorId: Int
   }
 
   type Query {
-    getAllProducts: [Product]       
+    getAllProducts(search: String, sort: String, order: String): [Product]       
     getProduct(id: ID!): Product  
     getAuthor: [Author]
   }
@@ -37,5 +41,8 @@ export const typeDefs = gql`
     createProduct(input: ProductInput): Product
     uploadImage(file: Upload!): String!
     uploadMultipleImages(files: [Upload!]!): [String!]!
+    removeProduct(id: ID!): Boolean
+    updateProduct(id: ID!, input: ProductInput!): Product!
   }
 `;
+

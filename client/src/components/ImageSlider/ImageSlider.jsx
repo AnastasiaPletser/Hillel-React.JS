@@ -23,7 +23,6 @@ export default function ImageSlider() {
   return (
     <div className="slider">
       <img src={images[currentIndex]} alt="Slider" className="slider__image" />
-      {/* <p className="sale">Акції та знижки</p> */}
     </div>
   );
 }

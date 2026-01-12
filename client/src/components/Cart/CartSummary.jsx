@@ -17,7 +17,7 @@ const CartSummary = () => {
         flexDirection: "row-reverse",
       }}
     >
-      <h3>Усього: {total}грн.</h3>
+      <h3>Разом: {total}грн.</h3>
     </div>
   );
 };

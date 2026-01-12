@@ -1,3 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Pinyon+Script&display=swap');
+
+.bookstore-title {
+  font-family: 'Pinyon Script', cursive;
+  font-size: 48px; 
+  color: #4154f1;  
+}
+
+
 .error {
   color: red;
   font-weight: bold;
@@ -45,8 +54,6 @@ background-color: #0056b3;
 
 .container {
 width: 50%;
-padding: 20px;
-margin: 0 auto;
 display: flex;
 flex-direction: column;
 flex-grow: 1;

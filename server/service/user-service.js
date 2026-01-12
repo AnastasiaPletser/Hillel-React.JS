@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
 import { User } from "../models/models.js";
 import tokenService from "./token-service.js";
-import UserDto from "../dtos/user-dto.js";
+// import UserDto from "../dtos/user-dto.js";
 import ApiError from "../error/ApiError.js";
 
 class UserService {

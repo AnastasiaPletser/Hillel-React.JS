@@ -12,6 +12,8 @@ import { ApolloServer } from "apollo-server-express";
 import { graphqlUploadExpress } from "graphql-upload";
 import { typeDefs } from "./graphql/schema.js";
 import { resolvers } from "./graphql/resolvers.js";
+// import route from "./uploads/upload-multiple.js";
+
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -25,6 +27,8 @@ app.use(express.static(path.resolve(__dirname, "static")));
 app.use(fileUpload({}));
 app.use("/api", router);
 app.use("/uploads", express.static(path.resolve(__dirname, "uploads"))); 
+
+// app.use(route);
 
 app.use(graphqlUploadExpress());
 

@@ -3,36 +3,47 @@ import fs from "fs";
 import path from "path";
 import { Product } from "../models/models.js";
 
-// import sequelize from "../db.js";
-
 export const resolvers = {
   Upload: GraphQLUpload,
 
   Query: {
     getAllProducts: async () => await Product.findAll(),
-    getProduct: async (_, { id }) => await Product.findByPk(id),
-    getAuthor: async () => [] // заглушка, если нужно подключим модель Author
-  },
+    
+
+    // getAuthor: async () => [] 
+   
+      getProduct: async (_, arg) => { 
+        console.log("id", arg.id)
+        const product = await Product.findByPk(arg.id, 
+          {include: {all: true}}
+        )
+        console.log(product)
+        return product
+      },
+    },
+
 
   Mutation: {
     createProduct: async (_, { input }) => {
       console.log("****************************", typeof(input.imgUrl), input)
-      // const product = await Product.create(input);
+     
       try {
-      const { name, description, price, imgUrl, year, authorId } = input;
+      // const { name, description, price, imgUrl, year, authorId } = input;
+       const { name, description, price, imgUrl, year, author, authorId  } = input;
       const product = await Product.create({
         name,
         description,
         price,
         imgUrl: Array.isArray(imgUrl) ? imgUrl : [],
         year,
+        author,
         authorId
       });
-      console.log("Товар создан", product)
+      console.log("Товар створено", product)
       return product
     } catch (error) {
       console.error(error);
-      throw new Error('Ошибка при создании продукта');
+      throw new Error('Помилка при створенні продукту');
     }
     },
 
@@ -52,8 +63,41 @@ export const resolvers = {
           .on("error", reject);
       });
 
-      return `http://localhost:5000/uploads/${filename}`;
+      return `http://localhost:5001/uploads/${filename}`;
     },
+
+ updateProduct: async (_, { id, input }, { models }) => {
+    const product = await models.Product.findByPk(id);
+    if (!product) throw new Error("Продукт не знайдено");
+
+    await product.update(input);
+    return product;
+  },
+
+// deleteProduct: async (_, { id }, { models }) => {
+//     const product = await models.Product.findByPk(id);
+//     if (!product) return false;
+
+//     await product.destroy();
+//     return true;
+//   },
+
+ removeProduct: async (_, { id }, context) => {
+      // 🔐 опціонально: перевірка авторизації
+      if (!context.user) {
+        throw new Error("Not authenticated");
+      }
+
+      const product = await Product.findByPk(id);
+      if (!product) {
+        throw new Error("Product not found");
+      }
+
+      await product.destroy();
+      return true;
+    },
+
+  
 
     uploadMultipleImages: async (_, { files }) => {
       const uploadDir = path.join(process.cwd(), "uploads");
@@ -73,10 +117,12 @@ export const resolvers = {
             .on("error", reject);
         });
 
-        uploadedUrls.push(`http://localhost:5000/uploads/${filename}`);
+        uploadedUrls.push(`http://localhost:5001/uploads/${filename}`);
       }
 
       return uploadedUrls;
     }
   }
 };
+
+

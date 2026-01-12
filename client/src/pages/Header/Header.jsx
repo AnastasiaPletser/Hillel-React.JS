@@ -40,11 +40,10 @@ const Header = observer(() => {
   return (
     <header style={styles.header}>
       <div style={styles.logo}>
-        <NavLink to="/" style={styles.link}>
-          <h1>Магазин</h1>
-        </NavLink>
+      <h1 className="bookstore-title">Librix</h1>
       </div>
       <nav className="navigation">
+        
         <NavLink to="/" end style={styles.link}>
           Головна
         </NavLink>
@@ -63,38 +62,47 @@ const Header = observer(() => {
           )}
         </NavLink>
 
-        <NavLink to={ADD_PRODUCT_ROUTE} style={styles.link}>
-          Додати товар
-        </NavLink>
+{user.isAuth ? (
+  <Nav className="ml-auto" style={{ color: "white" }}>
+    {user.user?.role === "ADMIN" && (
+      <>
+        <Button
+          variant={"outline-light"}
+          onClick={() => navigate(ADD_PRODUCT_ROUTE)}
+          className="mr-2"
+        >
+          Додати товар 1
+        </Button>
+        <Button
+          variant={"outline-light"}
+          onClick={() => navigate(ADMIN_ROUTE)}
+          className="mr-2"
+        >
+          Адмін панель
+        </Button>
+      </>
+    )}
 
-        {user.isAuth ? (
-          <Nav className="ml-auto" style={{ color: "white" }}>
-            {user.user?.role === "ADMIN" && (
-              <Button
-                variant={"outline-light"}
-                onClick={() => navigate(ADMIN_ROUTE)}
-              >
-                Адмін панель
-              </Button>
-            )}
-            <Button variant={"outline-light"} onClick={logOut} className="ml-2">
-              Вийти
-            </Button>
-          </Nav>
-        ) : (
-          <Nav className="ml-auto" style={{ color: "white" }}>
-            <Button
-              variant={"outline-light"}
-              onClick={() => navigate(LOGIN_ROUTE)}
-            >
-              Авторизація
-            </Button>
-          </Nav>
-        )}
+    <Button variant={"outline-light"} onClick={logOut} className="ml-2">
+      Вийти
+    </Button>
+  </Nav>
+) : (
+  <Nav className="ml-auto" style={{ color: "white" }}>
+    <Button
+      variant={"outline-light"}
+      onClick={() => navigate(LOGIN_ROUTE)}
+    >
+      Авторизація
+    </Button>
+  </Nav>
+)}
+
       </nav>
     </header>
   );
 });
+
 
 const styles = {
   header: {

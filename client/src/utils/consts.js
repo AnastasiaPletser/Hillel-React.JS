@@ -10,4 +10,4 @@ export const ABOUT_ROUTE = '/about'
 export const HOME_ROUTE = '/'
 export const PAGE_NOT_FOUND_ROUTE = '*'
 export const AUTH_ROUTE = '/auth'
-
+export const NEWS_ROUTE = '/news'

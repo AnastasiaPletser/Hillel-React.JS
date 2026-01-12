@@ -1,18 +1,25 @@
 import React, { createContext } from "react";
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
 import "./index.css";
-import App from "./components/App/App";
+import App from "./App/App.js";
 import UserStore from "./store/UserStore";
+
+import { ApolloProvider } from "@apollo/client";
+import client from "./apollo/client";
 
 export const Context = createContext(null);
 
-ReactDOM.render(
-  <Context.Provider
-    value={{
-      user: new UserStore(),
-    }}
-  >
-    <App />
-  </Context.Provider>,
-  document.getElementById("root")
+const container = document.getElementById("root");
+const root = createRoot(container);
+
+root.render(
+  <ApolloProvider client={client}>
+    <Context.Provider
+      value={{
+        user: new UserStore(),
+      }}
+    >
+      <App />
+    </Context.Provider>
+  </ApolloProvider>
 );

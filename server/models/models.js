@@ -25,9 +25,9 @@ const Product = sequelize.define('product', {
       const rawValue = this.getDataValue('imgUrl');
       if (typeof rawValue === 'string') {
         try {
-          return JSON.parse(rawValue); // если хранится в JSON
+          return JSON.parse(rawValue); 
         } catch {
-          return []; // если ошибка парсинга
+          return []; 
         }
       }
       return rawValue || [];
