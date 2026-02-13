@@ -12,8 +12,11 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.min.js";
 
 import "../App/App.css";
+import Header from "../pages/Header/Header";
 import BackToTop from "../components/BackToTop/BackToTop.jsx";
 import Footer from "../pages/Footer/Footer.jsx";
+import ScrollToTop from "../components/ScrollToTop.jsx";
+import { FavoriteProvider } from "../context/FavoriteContext.jsx";
 
 const App = observer(() => {
   const { user } = useContext(Context);
@@ -43,14 +46,24 @@ const App = observer(() => {
   }
 
   return (
-    <CartProvider>
+    <CartProvider> 
+      <FavoriteProvider>
       <BrowserRouter>
+      
         <div className="app">
-          <AppRouter />
+       <div className="wrapper">
+        <Header/>
+    <div className="wrapper-router">
+       <AppRouter />
+    </div>
+       
+          <ScrollToTop/>
           <BackToTop />
           <Footer />
+          </div>
         </div>
       </BrowserRouter>
+      </FavoriteProvider>
     </CartProvider>
   );
 });

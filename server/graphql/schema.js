@@ -10,7 +10,7 @@ export const typeDefs = gql`
     description: String
     year: Int
     price: Float!
-    author: String
+    authorName: String
     imgUrl: [String]
    
     authorId: Int
@@ -21,20 +21,29 @@ export const typeDefs = gql`
     name: String
   }
 
+  type ProductWithAuthor {
+    product: Product
+    authorName: String
+  }
+
   input ProductInput {
     name: String!
     description: String
     price: Float
     year: Int
-    author: String
+    authorName: String
     imgUrl: [String]
     authorId: Int
   }
 
+   
+
   type Query {
-    getAllProducts(search: String, sort: String, order: String): [Product]       
+    getAllProducts(search: String, sort: String, order: String): [Product]    
+    getAllProd(search: String, sort: String, order: String): [Product]    
     getProduct(id: ID!): Product  
     getAuthor: [Author]
+    getProductWithAuthor(id: ID): ProductWithAuthor
   }
 
   type Mutation  {

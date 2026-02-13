@@ -1,0 +1,141 @@
+.favorite {
+  max-width: 900px;
+  margin: 40px auto;
+}
+
+.header {
+  display: grid;
+  grid-template-columns: 1.6fr 0.6fr 40px;
+  background: #e9ecef;
+  padding: 14px 20px;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1.6fr 0.6fr 40px;
+  align-items: center;
+  padding: 18px 20px;
+  border-bottom: 1px solid #eee;
+}
+
+.product {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  img {
+    width: 60px;
+    height: 80px;
+    object-fit: contain;
+  }
+
+  span {
+    max-width: 240px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+.price {
+  font-weight: 600;
+}
+
+.remove {
+  border: none;
+  background: transparent;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.footer {
+  padding: 20px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.actions {
+  display: flex;
+  gap: 14px;
+}
+
+.addAllButton {
+  background: #2db84d;
+  color: white;
+  border: none;
+  padding: 12px 22px;
+  cursor: pointer;
+}
+
+.backButton {
+  background: #6c757d;
+  color: white;
+  border: none;
+  padding: 12px 22px;
+  cursor: pointer;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1.6fr 0.6fr 160px;
+  align-items: center;
+  padding: 18px 20px;
+  border-bottom: 1px solid #eee;
+}
+
+.product {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  img {
+    width: 60px;
+    height: 80px;
+    object-fit: contain;
+  }
+
+  span {
+    max-width: 240px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+.price {
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.toCart {
+  background: #2db84d;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  cursor: pointer;
+  border-radius: 4px;
+
+  &:hover {
+    background: #28a745;
+  }
+}
+
+.remove {
+  border: none;
+  background: transparent;
+  font-size: 22px;
+  cursor: pointer;
+  color: #888;
+
+  &:hover {
+    color: black;
+  }
+}

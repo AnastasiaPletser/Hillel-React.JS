@@ -3,18 +3,21 @@ import "./contact.scss";
 
 const Contact = () => {
   return (
-    <div>
+    <>
+    <section className="contact">
       <h2>Книжковий магазин Librix</h2>
       <div className="footer-description">
         <span>магазин Librix</span>
+        <br></br>
         <span>вулиця Харкова, 3, Київ, Україна</span>
         <pre />
-        <i class="bi bi-telephone-fill"></i>
+        <i className="bi bi-telephone-fill"></i>
         <a href="tel:(044)195-14-00" className="phoneCall">
           (044)195-14-00
         </a>
-      </div>
-    </div>
+        </div>
+      </section>
+    </>
   );
 };
 

@@ -10,16 +10,26 @@ export const CREATE_PRODUCT = gql`
       price
       author
       imgUrl
-      authorId
+      # authorId
     }
   }
 `;
 
+// export const REMOVE_PRODUCT = gql`
+//     mutation removeProduct($id: ID) {
+//         removeProduct(id: $id) {
+//             id
+//         }
+//     }
+// `;
+
 export const REMOVE_PRODUCT = gql`
-    mutation RemoveProduct($id: ID!) {
-        removeProduct(id: $id) 
-    }
+  mutation RemoveProduct($id: ID!) {
+    removeProduct(id: $id)
+  }
 `;
+
+
 export const UPDATE_PRODUCT = gql`
   mutation UpdateProduct($id: ID!, $input: ProductInput!) {
     updateProduct(id: $id, input: $input) {
@@ -30,7 +40,7 @@ export const UPDATE_PRODUCT = gql`
       year
       author
       imgUrl
-      authorId
+      # authorId
     }
   }
 `;
@@ -64,23 +74,23 @@ export function EditProduct ({ id, editData, onUpdate }) {
   );
 }
 
-export const MyComponent = () => {
-  const [createProduct] = useMutation(CREATE_PRODUCT);
-  const handleCreate = () => {
-    createProduct({
-      variables: {
-        input: {
-          name: "Назва книги",
-          description: "Опис",
-          price: 100,
-          year: 2025,
-          author: "Автор",
-          imgUrl: ["https://example.com/image.jpg"],
-          authorId: 1
-        }
-      }
-    });
-  };
+// export const MyComponent = () => {
+//   const [createProduct] = useMutation(CREATE_PRODUCT);
+//   const handleCreate = () => {
+//     createProduct({
+//       variables: {
+//         input: {
+//           name: "Назва книги",
+//           description: "Опис",
+//           price: 100,
+//           year: 2025,
+//           author: "Автор",
+//           imgUrl: ["https://example.com/image.jpg"],
+//           authorId: 1
+//         }
+//       }
+//     });
+//   };
 
-  return <button onClick={handleCreate}>Додати товар</button>;
-};
+//   return <button onClick={handleCreate}>Додати товар</button>;
+// };

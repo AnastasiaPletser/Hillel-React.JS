@@ -8,16 +8,26 @@ export const resolvers = {
 
   Query: {
     getAllProducts: async () => await Product.findAll(),
-    
-
-    // getAuthor: async () => [] 
-   
+    async getAllProd() {
+      let products = await Product.findAndCountAll({})
+      console.log("----Products----", products.rows)
+      return products.rows
+    },
+     
       getProduct: async (_, arg) => { 
         console.log("id", arg.id)
         const product = await Product.findByPk(arg.id, 
           {include: {all: true}}
         )
-        console.log(product)
+        return product
+      },
+
+      getProductWithAuthor: async (_, arg) => { 
+        console.log("id", arg.id)
+        const product = await Product.findByPk(arg.id, 
+          {include: {all: true}}
+        )
+        console.log("----Products----", product)
         return product
       },
     },
@@ -29,7 +39,7 @@ export const resolvers = {
      
       try {
       // const { name, description, price, imgUrl, year, authorId } = input;
-       const { name, description, price, imgUrl, year, author, authorId  } = input;
+       const { name, description, price, imgUrl, year, author } = input;
       const product = await Product.create({
         name,
         description,
@@ -37,7 +47,7 @@ export const resolvers = {
         imgUrl: Array.isArray(imgUrl) ? imgUrl : [],
         year,
         author,
-        authorId
+        // authorId
       });
       console.log("Товар створено", product)
       return product
@@ -74,28 +84,14 @@ export const resolvers = {
     return product;
   },
 
-// deleteProduct: async (_, { id }, { models }) => {
-//     const product = await models.Product.findByPk(id);
-//     if (!product) return false;
+ removeProduct: async (_, { id }, { user }) => {
+  if (!user) {
+    throw new Error("Not authenticated");
+  }
 
-//     await product.destroy();
-//     return true;
-//   },
-
- removeProduct: async (_, { id }, context) => {
-      // 🔐 опціонально: перевірка авторизації
-      if (!context.user) {
-        throw new Error("Not authenticated");
-      }
-
-      const product = await Product.findByPk(id);
-      if (!product) {
-        throw new Error("Product not found");
-      }
-
-      await product.destroy();
-      return true;
-    },
+  await Product.destroy({ where: { id } });
+  return true;
+},
 
   
 

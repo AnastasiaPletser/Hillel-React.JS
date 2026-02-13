@@ -1,111 +1,192 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useMutation } from "@apollo/client";
 import { UPDATE_PRODUCT } from "../../graphql/mutations";
+import "./editProduct.scss";
 
-const EditProduct = ({ product, onUpdated }) => {
+const NO_IMAGE_PLACEHOLDER = "/images/no-image.png";
+
+const EditProduct = ({ product, onUpdated, onClose }) => {
   const [editData, setEditData] = useState({
-    name: product.name || "",
-    description: product.description || "",
-    price: product.price || 0,
-    year: product.year || null,
-    author: product.author || "",
-    authorId: product.authorId || null,
-    imgUrl: Array.isArray(product.imgUrl) ? product.imgUrl : [product.imgUrl],
+    name: "",
+    description: "",
+    price: "",
+    year: "",
+    author: "",
+    // authorId: "",
+    imgUrl: [""],
   });
 
   const [updateProduct, { loading, error }] = useMutation(UPDATE_PRODUCT);
 
+  useEffect(() => {
+    if (!product) return;
+
+    setEditData({
+      name: product.name ?? "",
+      description: product.description ?? "",
+      price: product.price ?? "",
+      year: product.year ?? "",
+      author: product.author ?? "",
+      // authorId: product.authorId ?? "",
+      imgUrl: Array.isArray(product.imgUrl)
+        ? product.imgUrl
+        : product.imgUrl
+        ? [product.imgUrl]
+        : [""],
+    });
+  }, [product]);
+
+  if (!product) {
+    return <p>Завантаження...</p>;
+  }
+
+  const handleAddImage = () => {
+    setEditData((p) => ({
+      ...p,
+      imgUrl: [...p.imgUrl, ""],
+    }));
+  };
+
+  const handleRemoveImage = (index) => {
+    setEditData((p) => ({
+      ...p,
+      imgUrl: p.imgUrl.filter((_, i) => i !== index),
+    }));
+  };
+
   const handleSaveChanges = async () => {
     try {
-      console.log("Відправляємо на сервер:", {
-        id: product.id,
-        input: {
-          ...editData,
-          price: parseFloat(editData.price) || 0,
-          year: parseInt(editData.year) || null,
-          imgUrl: editData.imgUrl.filter((url) => url.trim() !== ""),
-          authorId: editData.authorId || null,
-        },
-      });
+      const images = editData.imgUrl
+        .map((url) => url.trim())
+        .filter(Boolean);
+
+      const input = {
+        name: editData.name,
+        description: editData.description || null,
+        price: Number(editData.price) || 0,
+        year:
+          editData.year === "" || editData.year === null
+            ? null
+            : Number(editData.year),
+        author: editData.author || null,
+        // authorId: editData.authorId || null,
+        imgUrl: images.length ? images : [NO_IMAGE_PLACEHOLDER],
+      };
 
       const result = await updateProduct({
-        variables: {
-          id: product.id,
-          input: {
-            ...editData,
-            price: parseFloat(editData.price) || 0,
-            year: parseInt(editData.year) || null,
-            imgUrl: editData.imgUrl.filter((url) => url.trim() !== ""),
-            authorId: editData.authorId || null,
-          },
-        },
+        variables: { id: product.id, input },
       });
+
+      if (!result?.data?.updateProduct) {
+        console.error("Update failed, server returned no data:", result);
+        alert(
+          "Не вдалось зберегти зміни. Сервер не відповів або продукт не знайдено."
+        );
+        return;
+      }
 
       const updatedProduct = result.data.updateProduct;
       console.log("✅ Оновлено:", updatedProduct);
 
-      if (onUpdated) onUpdated(updatedProduct);
+      onUpdated?.(updatedProduct);
     } catch (err) {
-      console.error("Помилка оновлення:", err.message);
-      alert("Не вдалось зберегти зміни. Спробуйте ще раз.");
+      console.error("Помилка оновлення:", err);
+      alert("Не вдалось зберегти зміни. Перевірте дані або спробуйте ще раз.");
     }
   };
 
   return (
     <div className="edit-product">
+
+      <button
+        type="button"
+        className="close-button"
+        onClick={onClose}
+        disabled={loading}
+      >
+        ✕
+      </button>
+
       <h2>Редагувати товар</h2>
 
-      {error && <p style={{ color: "red" }}>❌ {error.message}</p>}
+      {error && <p className="error">❌ {error.message || "Помилка сервера"}</p>}
 
       <input
         type="text"
         placeholder="Назва"
         value={editData.name}
-        onChange={(e) => setEditData((prev) => ({ ...prev, name: e.target.value }))}
+        onChange={(e) =>
+          setEditData((p) => ({ ...p, name: e.target.value }))
+        }
       />
 
       <input
         type="text"
         placeholder="Автор"
-        value={editData.author}
-        onChange={(e) => setEditData((prev) => ({ ...prev, author: e.target.value }))}
+        value={editData.authorId}
+        // value={editData.author}
+        onChange={(e) =>
+          setEditData((p) => ({ ...p, author: e.target.value }))
+        }
       />
 
       <input
         type="number"
         placeholder="Ціна"
         value={editData.price}
-        onChange={(e) => setEditData((prev) => ({ ...prev, price: e.target.value }))}
+        onChange={(e) =>
+          setEditData((p) => ({ ...p, price: e.target.value }))
+        }
       />
 
       <input
         type="number"
         placeholder="Рік видання"
         value={editData.year}
-        onChange={(e) => setEditData((prev) => ({ ...prev, year: e.target.value }))}
+        onChange={(e) =>
+          setEditData((p) => ({ ...p, year: e.target.value }))
+        }
       />
 
       <textarea
         placeholder="Опис"
         value={editData.description}
-        onChange={(e) => setEditData((prev) => ({ ...prev, description: e.target.value }))}
+        onChange={(e) =>
+          setEditData((p) => ({ ...p, description: e.target.value }))
+        }
       />
 
-      {editData.imgUrl.map((url, index) => (
-        <input
-          key={index}
-          type="text"
-          placeholder={`Зображення ${index + 1}`}
-          value={url || ""}
-          onChange={(e) =>
-            setEditData((prev) => {
-              const newUrls = [...prev.imgUrl];
-              newUrls[index] = e.target.value;
-              return { ...prev, imgUrl: newUrls };
-            })
-          }
-        />
-      ))}
+      <div className="images">
+        {editData.imgUrl.map((url, index) => (
+          <div key={index} className="image-row">
+            <input
+              type="text"
+              placeholder={`Зображення ${index + 1}`}
+              value={url}
+              onChange={(e) =>
+                setEditData((p) => {
+                  const imgs = [...p.imgUrl];
+                  imgs[index] = e.target.value;
+                  return { ...p, imgUrl: imgs };
+                })
+              }
+            />
+            {editData.imgUrl.length > 1 && (
+              <button
+                type="button"
+                className="remove-image"
+                onClick={() => handleRemoveImage(index)}
+              >
+                ✕
+              </button>
+            )}
+          </div>
+        ))}
+
+        <button type="button" className="add-image" onClick={handleAddImage}>
+          + Додати зображення
+        </button>
+      </div>
 
       <button onClick={handleSaveChanges} disabled={loading}>
         {loading ? "Зберігаємо..." : "Зберегти зміни"}
@@ -115,3 +196,4 @@ const EditProduct = ({ product, onUpdated }) => {
 };
 
 export default EditProduct;
+

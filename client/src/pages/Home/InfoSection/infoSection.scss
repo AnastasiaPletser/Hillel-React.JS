@@ -1,0 +1,31 @@
+.section {
+  height: 400px;
+  background-color: #f2b233;
+  display: flex;
+  justify-content: space-evenly;
+
+  .card {
+    height: 350px;
+    width: 300px;
+    margin: 10px;
+  }
+  .card-img {
+    height: 237px;
+    width: 285px;
+}
+}
+.card-body {
+  text-align: center;
+  font-family: "DM Serif Text", serif;
+  font-weight: 400;
+  font-style: italic;
+  padding: 10px;
+
+  h4 {
+    font-size: 21px;
+  }
+
+  .card-text {
+    font-family: Georgia, serif;
+  }
+}

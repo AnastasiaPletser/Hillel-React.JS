@@ -1,0 +1,39 @@
+.add-product-form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    max-width: 600px;
+}
+.form{
+    display: flex;
+    flex-direction: column;
+    max-width: 600px;
+}
+.add-product {
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 30px;
+}
+
+ .go-back-button {
+    position: absolute;
+    left: 20px;
+    background-color: #fff;
+    border: none;
+    font-size: 18px;
+    font-family: "Arial";
+    font-style:italic;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+     padding: 8px 12px;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }

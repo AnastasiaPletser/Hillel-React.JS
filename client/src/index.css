@@ -27,11 +27,11 @@ footer, header, hgroup, menu, nav, section {
     rgba(0, 0, 0, 0.2), 
     rgba(0, 0, 0, 0.2)
   ),
-  url('https://images.pexels.com/photos/2768396/pexels-photo-2768396.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
+  /* url('https://images.pexels.com/photos/2768396/pexels-photo-2768396.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
 background-size: cover;
 background-position: center;
 background-attachment: fixed;
-color: white;
+color: white; */
 }
 body {
 	line-height: 1;
@@ -46,6 +46,7 @@ blockquote:before, blockquote:after,
 q:before, q:after {
 	content: '';
 	content: none;
+    background-color: #f3efe6;
 }
 table {
 	border-collapse: collapse;
@@ -59,38 +60,6 @@ html {
 }
 
 img {
-  width: 100%;
+      width: 100px;
+    height: 130px;
 }
-
-.products-list {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: auto;
-  gap: 20px;
-  padding: 0 20px;
-}
-
-.product {
-  padding: 20px;
-  border: 1px solid #ccc;
-}
-
-.product img {
-  height: 150px;
-}
-
-.product h4 {
-  font-weight: 700;
-}
-
-.navigation {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.navigation a {
-  padding: 10px;
-  margin: 0 20px;
-}
-

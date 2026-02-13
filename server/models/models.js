@@ -44,6 +44,7 @@ const Product = sequelize.define('product', {
   },
   description: { type: DataTypes.STRING, allowNull: true },
   year: { type: DataTypes.INTEGER, allowNull: true },
+  authorName: { type: DataTypes.STRING, allowNull: true },
   authorId: { type: DataTypes.INTEGER, allowNull: true}
 });
 

@@ -1,35 +1,21 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useMutation, gql } from "@apollo/client";
-import "./AddProduct2.css";
+import { useMutation} from "@apollo/client";
+import { CREATE_PRODUCT } from "../../graphql/mutations";
+import "./AddProduct.scss";
 
-const CREATE_PRODUCT = gql`
-  mutation CreateProduct($input: ProductInput!) {
-    createProduct(input: $input) {
-      id
-      name
-      description
-      year
-      price
-      author
-      imgUrl
-      authorId
-    }
-  }
-`;
+const NO_IMAGE_PLACEHOLDER = "/images/no-image.png";
 
-const AddProduct2 = () => {
+const AddProduct = () => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [year, setYear] = useState("");
   const [price, setPrice] = useState("");
   const [author, setAuthor] = useState("");
-
   const [imgUrls, setImgUrls] = useState([""]);
-
   const [isAdded, setIsAdded] = useState(false);
-  const navigate = useNavigate();
 
+  const navigate = useNavigate();
   const [createProduct, { loading, error }] = useMutation(CREATE_PRODUCT);
 
   const resetForm = () => {
@@ -55,17 +41,17 @@ const AddProduct2 = () => {
     e.preventDefault();
 
     try {
-      const placeholderImg = "https://via.placeholder.com/150";
+      const images = imgUrls
+        .map((url) => url.trim())
+        .filter(Boolean);
+
       const input = {
         name,
-        price: price ? parseFloat(price) : 0,
+        price: parseFloat(price),
         ...(description && { description }),
         ...(year && { year: parseInt(year) }),
         ...(author && { author }),
-        imgUrl:
-          imgUrls.filter((url) => url.trim() !== "").length > 0
-            ? imgUrls.filter((url) => url.trim() !== "")
-            : [placeholderImg],
+        imgUrl: images.length > 0 ? images : [NO_IMAGE_PLACEHOLDER],
       };
 
       await createProduct({ variables: { input } });
@@ -75,65 +61,47 @@ const AddProduct2 = () => {
     }
   };
 
+   const handleGoBack = () => navigate(-1);
+
   return (
+
+    
     <div className="add-product">
+
+         {!isAdded && (
+  <button className="go-back-button" onClick={handleGoBack}>
+    ← Повернутись назад
+  </button>
+)}
+
       <h1>Додати новий товар</h1>
 
-      {error && <p style={{ color: "red" }}>❌ {error.message}</p>}
+      {error && <p className="error">❌ {error.message}</p>}
 
       {!isAdded ? (
         <form onSubmit={handleSubmitForm} className="form">
-          <input
-            type="text"
-            placeholder="Назва"
-            maxLength={50}
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-          />
-          <input
-            type="text"
-            placeholder="Автор"
-            value={author}
-            onChange={(e) => setAuthor(e.target.value)}
-          />
-          <input
-            type="number"
-            placeholder="Ціна"
-            value={price}
-            onChange={(e) => setPrice(e.target.value)}
-            required
-          />
-          <input
-            type="number"
-            placeholder="Рік видання"
-            value={year}
-            onChange={(e) => setYear(e.target.value)}
-          />
-          <input
-            type="text"
-            placeholder="Опис"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            maxLength={200}
-          />
-
-          <div className="images-inputs">
+<div className="images-inputs">
             {imgUrls.map((url, index) => (
               <div key={index} className="image-input">
                 <input
                   type="text"
                   placeholder={`ImgUrl ${index + 1}`}
                   value={url}
-                  onChange={(e) => handleImgChange(index, e.target.value)}
+                  onChange={(e) =>
+                    handleImgChange(index, e.target.value)
+                  }
                 />
-                {url && (
-                  <img
-                    src={url}
-                    alt={`preview-${index}`}
-                    className="product-card__image"
-                  />
-                )}
+
+                 
+
+                <img
+                  src={url || NO_IMAGE_PLACEHOLDER}
+                  alt="preview"
+                  className="product-card__image"
+                  onError={(e) => {
+                    e.target.src = NO_IMAGE_PLACEHOLDER;
+                  }}
+                />
               </div>
             ))}
 
@@ -141,6 +109,58 @@ const AddProduct2 = () => {
               + Додати ще картинку
             </button>
           </div>
+
+          Назва
+          <input
+            type="text"
+            placeholder="Назва"
+            value={name}
+            maxLength={50}
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
+          Автор
+          <input
+            type="text"
+            placeholder="Автор"
+            value={author}
+            onChange={(e) => setAuthor(e.target.value)}
+          />
+          Ціна, грн
+          <input
+            type="number"
+            placeholder="Ціна"
+            value={price}
+            onChange={(e) => setPrice(e.target.value)}
+            required
+          />
+          Рік видання
+          <input
+            type="number"
+            placeholder="Рік видання"
+            value={year}
+            onChange={(e) => setYear(e.target.value)}
+          />
+          Опис
+          <textarea 
+            type="text"
+            placeholder="Опис"
+            value={description}
+            maxLength={200}
+            onChange={(e) => setDescription(e.target.value)}
+          />
+
+          
+              Наявність
+              <select  
+            name="availability" 
+            defaultValue="Уточнюйте" 
+            >
+<option value="Є в наявності">Є в наявності</option>
+<option value="Немає в наявності">Немає в наявності</option>
+<option value="Під замовлення">Під замовлення</option>
+</select>
+   
 
           <button type="submit" disabled={loading}>
             {loading ? "Додаємо..." : "Додати товар"}
@@ -157,11 +177,13 @@ const AddProduct2 = () => {
           >
             Додати ще
           </button>
-          <button onClick={() => navigate("/")}>Повернутися на головну</button>
+          <button onClick={() => navigate("/")}>
+            Повернутися на головну
+          </button>
         </div>
       )}
     </div>
   );
 };
 
-export default AddProduct2;
+export default AddProduct;

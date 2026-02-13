@@ -1,0 +1,42 @@
+.vacancies {
+  display: flex;
+  padding: 30px 60px;
+  background: #f5f1e8;
+
+  .vacancies_ua {
+    width: 500px;
+    padding-left: 20px;
+
+    h4 {
+      font-family: Lato, serif;
+      font-size: 25px;
+      font-weight: 600;
+      font-style: normal;
+      color: #333;
+    }
+  }
+
+  .vacancies_description {
+    max-width: 900px;
+    padding-left: 30px;
+
+    h4 {
+      font-family: Lato, serif;
+      font-size: 25px;
+      font-weight: 600;
+      font-style: normal;
+      color: #333;
+      padding-left: 35px;
+    }
+   ul {
+  list-style-type: disc;
+  padding-left: 50px;
+  color: #333;
+  font-size: 20px;
+  li{
+    list-style: none;
+  }
+}
+
+  }
+}

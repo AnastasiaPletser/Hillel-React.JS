@@ -1,6 +1,7 @@
 .news {
   display: flex;
   padding: 30px 60px;
+  background: #f5f1e8;
 
   h5 {
     font-family: Lato, serif;
@@ -10,7 +11,7 @@
       color: #333;
   }
 
-  .about_us {
+  .news_ua {
     width: 500px;
     padding-left: 20px;
 
@@ -23,7 +24,7 @@
     }
   }
 
-  .about_description {
+  .news_description {
     max-width: 900px;
     padding-left: 30px;
 
@@ -37,7 +38,7 @@
     }
     p {
         font-family: Lato, serif;
-      font-size: 25px;
+      font-size: 22px;
       font-style: normal;
       color: #333;
     }

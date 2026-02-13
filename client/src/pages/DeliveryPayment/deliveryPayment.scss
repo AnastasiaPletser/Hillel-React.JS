@@ -1,0 +1,56 @@
+.delivery-payment {
+  display: flex;
+  padding: 30px 60px;
+  background: #f5f1e8;
+
+  h5 {
+    font-family: Lato, serif;
+      font-size: 25px;
+      font-weight: 600;
+      font-style: normal;
+      color: #333;
+  }
+
+  .delivery-payment__ua {
+    width: 500px;
+    padding-left: 20px;
+
+    h4 {
+      font-family: Lato, serif;
+      font-size: 25px;
+      font-weight: 600;
+      font-style: normal;
+      color: #333;
+    }
+  }
+
+  .delivery-payment__description {
+    max-width: 900px;
+    padding-left: 30px;
+
+    h4 {
+      font-family: Lato, serif;
+      font-size: 25px;
+      font-weight: 600;
+      font-style: normal;
+      color: #333;
+      padding-left: 35px;
+    }
+    p {
+        font-family: Lato, serif;
+      font-size: 22px;
+      font-style: normal;
+      color: #333;
+    }
+   ul {
+  list-style-type: disc;
+  padding-left: 50px;
+  color: #333;
+  font-size: 20px;
+  li{
+    list-style: none;
+  }
+}
+
+  }
+}

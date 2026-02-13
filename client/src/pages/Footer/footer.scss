@@ -8,12 +8,15 @@ $text-color: #fff;
 
 #footer {
   padding: 0 0 30px 0;
-  color: $text-color;
+  // color: $text-color;
+  color: wheat;
+  background-color: #0b3a53;
   font-size: 14px;
   height: 440px;
 
   .footer-top {
-    background: $bg-top;
+    // background: $bg-top;
+    background-color: #17323d;
     border-top: 1px solid $border-light;
     border-bottom: 1px solid $border-dark;
     padding: 60px 0 30px;
@@ -78,7 +81,7 @@ $text-color: #fff;
     li {
       display: flex;
       align-items: center;
-      padding: 10px 0;
+      // padding: 10px 0;
 
       &:first-child {
         padding-top: 0;
@@ -182,3 +185,4 @@ $text-color: #fff;
     margin: 0 120px;
   }
 }
+

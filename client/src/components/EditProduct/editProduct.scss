@@ -1,0 +1,150 @@
+.edit-product {
+  position: relative;
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 24px 28px;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+
+  h2 {
+    text-align: center;
+    margin-bottom: 10px;
+    color: #222;
+    font-size: 22px;
+  }
+
+  input,
+  textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+    &:focus {
+      outline: none;
+      border-color: #4a90e2;
+      box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.15);
+    }
+  }
+
+  textarea {
+    min-height: 100px;
+    resize: vertical;
+  }
+
+  button {
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 500;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+  }
+
+  button:first-of-type {
+    background-color: #4a90e2;
+    color: #fff;
+
+    &:hover:not(:disabled) {
+      background-color: #3a78c2;
+    }
+
+    &:active:not(:disabled) {
+      transform: translateY(1px);
+    }
+  }
+
+  button:last-of-type {
+    background-color: #f2f2f2;
+    color: #333;
+
+    &:hover {
+      background-color: #e4e4e4;
+    }
+  }
+
+  p {
+    font-size: 14px;
+    margin: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .edit-product {
+    margin: 20px;
+    padding: 20px;
+  }
+}
+
+.images {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.image-row {
+  display: flex;
+  margin-bottom: 8px;
+  gap: 8px;
+  align-items: center;
+
+  input {
+    flex: 1;
+  }
+}
+
+.add-image {
+  align-self: flex-start;
+  background-color: #eef4ff;
+  color: #4a90e2;
+  border: 1px dashed #4a90e2;
+
+  &:hover {
+    background-color: #dbe9ff;
+  }
+}
+
+.remove-image {
+  margin-left: 8px;
+  background-color: transparent;
+  border: none;
+  color: #ff4d4f;
+  font-size: 18px;
+  cursor: pointer;
+
+  &:hover {
+    color: #d9363e;
+  }
+}
+
+.add-image {
+  margin-top: 8px;
+}
+
+.close-button {
+  background: transparent;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  color: #333;
+
+  &:hover {
+    color: #ff0000;
+  }
+}

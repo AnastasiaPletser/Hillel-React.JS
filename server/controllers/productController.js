@@ -5,7 +5,7 @@ import { Product } from "../models/models.js";
 class ProductController {
   async create(req, res) {
     try {
-      const { name, price, description, year, author, authorId } = req.body;
+      const { name, price, description, year, author } = req.body;
       // const { name, price, description, year, authorId } = req.body;
 
       if (!name || !price || !description || !author) {
@@ -36,6 +36,7 @@ class ProductController {
         price,
         description,
         year,
+        author,
         // authorId,
         imgUrl: fileName,
       });

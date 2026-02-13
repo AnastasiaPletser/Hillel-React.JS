@@ -1,6 +1,139 @@
 .header {
-    background-color: aquamarine;
-    
+  position: sticky;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #0b3a53;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  .header__top {
+    height: 30px;
+    background-color: #237a5c;
+    display: flex;
+    flex-direction: row-reverse;
+    padding: 5px 10px;
+    font-size: 14px;
+  }
+  .header__top p {
+      color: #131e39;
+    }
+.header__bottom{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 75px;
+}
+}
+  
+.header__logo {
+  font-size: 1.5rem;
+  font-weight: bold;
 }
 
+.navigation {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
 
+.nav__link {
+  text-decoration: none;
+  font-size: 1.1rem;
+  color: #ffe3b4;
+
+  &:hover {
+   color: #d3ac69;
+  }
+}
+
+.cart-link {
+  position: relative;
+  color: white;
+  text-decoration: none;
+}
+
+.cart-icon-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.cart-icon {
+  font-size: 24px;
+}
+
+.cart-badge {
+  position: absolute;
+  top: -2px;
+  right: -10px;
+
+  background-color: #185cd8a8;
+  color: #fff;
+
+  border-radius: 50%;
+  min-width: 18px;
+  height: 18px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.exit-btn{
+display: flex;
+align-items: center;
+gap: 8px;
+  text-decoration: none;
+  font-size: 1.1rem;
+  text-decoration: none;
+  color: #e9c588;
+
+  &:hover {
+   color: #f2b233;
+  }
+
+img {
+  width: 26px;
+  height: 26px;
+}
+}
+
+.login-btn{
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  font-size: 1.1rem;
+  text-decoration: none;
+  color: #e9c588;
+
+  &:hover {
+   color: #f2b233;
+  }
+
+img {
+  width: 26px;
+  height: 26px;
+}
+}
+.cart-btn{
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  font-size: 1.1rem;
+  text-decoration: none;
+  color: #e9c588;
+
+  &:hover {
+   color: #f2b233;
+  }
+
+img {
+  width: 26px;
+  height: 26px;
+}
+}

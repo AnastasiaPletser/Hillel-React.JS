@@ -1,5 +1,14 @@
 import React from "react";
-import { ABOUT_ROUTE, NEWS_ROUTE } from "../../utils/consts";
+import {
+  ABOUT_ROUTE,
+  NEWS_ROUTE,
+  VACANCIES_ROUTE,
+  OFERTA_ROUTE,
+  DELIVERY_PAYMENT_ROUTE,
+  RETURN_ROUTE,
+  BONUS_ROUTE,
+  GIFT_SERTIFICATES_ROUTE,
+} from "../../utils/consts";
 import "./footer.scss";
 import { NavLink } from "react-router-dom";
 
@@ -11,7 +20,11 @@ export default function Footer() {
           <div className="footer-container">
             <div className="col-Lg-3 col-md-6">
               <div className="footer-info">
-                <h1 className="bookstore-title">Librix</h1>
+                 <h1 className="bookstore-title">
+                  <NavLink to="/" className="bookstore-title-link">
+                    Librix
+                  </NavLink>
+                </h1>
                 <p>
                   м.Київ <br />
                   вул. Харкова, 3
@@ -30,7 +43,7 @@ export default function Footer() {
                 </p>
                 <div className="social-links mt-3">
                   <a href="https://www.tiktok.com" className="tiktok">
-                    <i class="bi bi-tiktok"></i>
+                    <i className="bi bi-tiktok"></i>
                   </a>
                   <a href="https://www.facebook.com" className="facebook">
                     <i className="bi bi-facebook"></i>
@@ -49,23 +62,47 @@ export default function Footer() {
               <h4>Librix</h4>
               <ul>
                 <li>
-                  <NavLink to={ABOUT_ROUTE} className="link">
+                  <NavLink
+                    to={ABOUT_ROUTE}
+                    className={({ isActive }) =>
+                      isActive ? "link active" : "link"
+                    }
+                  >
                     Про нас
                   </NavLink>
                 </li>
 
                 <li>
-                  <NavLink to={NEWS_ROUTE} className="link">
+                  <NavLink
+                    to={NEWS_ROUTE}
+                    className={({ isActive }) =>
+                      isActive ? "link active" : "link"
+                    }
+                  >
                     Новини
                   </NavLink>
                 </li>
+
                 <li>
-                  <i className="bx bx-chevron-right"></i>{" "}
-                  <a href="#">Вакансії</a>
+                  <NavLink
+                    to={VACANCIES_ROUTE}
+                    className={({ isActive }) =>
+                      isActive ? "link active" : "link"
+                    }
+                  >
+                    Вакансії
+                  </NavLink>
                 </li>
+
                 <li>
-                  <i className="bx bx-chevron-right"></i>{" "}
-                  <a href="#">Договір публічної офери</a>
+                  <NavLink
+                    to={OFERTA_ROUTE}
+                    className={({ isActive }) =>
+                      isActive ? "link active" : "link"
+                    }
+                  >
+                    Договір публічної офери
+                  </NavLink>
                 </li>
               </ul>
             </div>
@@ -73,20 +110,44 @@ export default function Footer() {
               <h4>Інформація</h4>
               <ul>
                 <li>
-                  <i className="bx bx-chevron-right"></i>{" "}
-                  <a href="#">Доставка та оплата</a>
+                  <NavLink
+                    to={DELIVERY_PAYMENT_ROUTE}
+                    className={({ isActive }) =>
+                      isActive ? "link active" : "link"
+                    }
+                  >
+                    Доставка і оплата
+                  </NavLink>
                 </li>
                 <li>
-                  <i className="bx bx-chevron-right"></i>{" "}
-                  <a href="#">Повернення товару</a>
+                  <NavLink
+                    to={RETURN_ROUTE}
+                    className={({ isActive }) =>
+                      isActive ? "link active" : "link"
+                    }
+                  >
+                    Повернення товару
+                  </NavLink>
                 </li>
                 <li>
-                  <i className="bx bx-chevron-right"></i>{" "}
-                  <a href="#">Програма лояльності</a>
+                  <NavLink
+                    to={BONUS_ROUTE}
+                    className={({ isActive }) =>
+                      isActive ? "link active" : "link"
+                    }
+                  >
+                    Програма лояльності
+                  </NavLink>
                 </li>
                 <li>
-                  <i className="bx bx-chevron-right"></i>{" "}
-                  <a href="#">Подарункові сертифікати</a>
+                  <NavLink
+                    to={GIFT_SERTIFICATES_ROUTE}
+                    className={({ isActive }) =>
+                      isActive ? "link active" : "link"
+                    }
+                  >
+                    Подарункові сертифікати
+                  </NavLink>
                 </li>
               </ul>
             </div>

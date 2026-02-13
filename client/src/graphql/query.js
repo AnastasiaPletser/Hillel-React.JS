@@ -8,8 +8,9 @@ export const GET_ALL_PRODUCTS = gql`
       description
       year
       price
-      author
+      authorName
       imgUrl
+      authorId
     }
   }
 `;
@@ -21,10 +22,25 @@ export const GET_PRODUCT = gql`
       description
       year
       price
-      author
+      authorName
       imgUrl
+      authorId
     }
   }
 `;
 
-
+export const GET_PRODUCT_WITH_AUTHOR = gql`
+  query GetProductWithAuthor($id: ID!) {
+    product: getProductWithAuthor(id: $id) {
+      id
+      name
+      description
+      year
+      price
+      authorName
+      imgUrl
+      authorId
+    }
+authorName
+  }
+`;

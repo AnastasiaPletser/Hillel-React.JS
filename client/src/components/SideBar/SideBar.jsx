@@ -1,48 +1,72 @@
+import { NavLink } from "react-router-dom";
 import Logo from "../../pages/AdminOffice/Logo/Logo";
-import "../SideBar/sideBar.css";
-// import navList from "./data/navItem.js";
-// import NavItem from "./NavItem.jsx";
+import "../SideBar/sideBar.scss";
+import { MANAGE_PRODUCTS_ROUTE, USERS_ROUTE, SETTINGS_ROUTE } from "../../utils/consts";
 
 const SideBar = () => {
-  // const [isOpen, setIsOpen] = useState(false);
-
-  // const toggleSidebar = () => {
-  //   setIsOpen(!isOpen);
-  // };
 
   return (
     <>
-    
-      {/* Кнопка бургер-меню */}
-      {/* <button 
-        className="sidebar-toggle-btn" 
-        onClick={toggleSidebar}
-      >
-        ☰
-      </button> */}
-
-
       <aside id="sidebar" className="sidebar">
         <Logo />
         <ul className="sidebar-nav">
           <li className="nav-item">
-            <a href="/" className="nav-link">
+            <NavLink
+              to="/"
+              end
+              className={({ isActive }) =>
+                isActive ? "nav-link active" : "nav-link"
+              }
+            >
               <i className="bi bi-house"></i>
-              Home
-            </a>
+              Головна сторінка
+            </NavLink>
           </li>
+
           <li className="nav-item">
-            <a href="/products" className="nav-link">
+            <NavLink
+              to={MANAGE_PRODUCTS_ROUTE}
+              className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")}
+            >
               <i className="bi bi-box"></i>
-              Products
-            </a>
+              Управління продуктами
+            </NavLink>
           </li>
+
           <li className="nav-item">
-            <a href="/settings" className="nav-link">
-              <i className="bi bi-gear"></i>
-              Settings
-            </a>
+            <NavLink
+              to={USERS_ROUTE}
+              className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")}
+            >
+              <i className="bi bi-person"></i>
+              Користувачі
+            </NavLink>
           </li>
+
+
+          <li className="nav-item">
+            <NavLink
+              to={SETTINGS_ROUTE}
+              className={({ isActive }) => (isActive ? "nav-link active" : "nav-link")}
+            >
+              <i className="bi bi-gear"></i>
+              Налаштування
+            </NavLink>
+          </li>
+
+           <li className="nav-item">
+            <NavLink
+              to="/"
+              end
+              className={({ isActive }) =>
+                isActive ? "nav-link active" : "nav-link"
+              }
+            >
+              <i className="bi-box-arrow-right"></i>
+              Вихід
+            </NavLink>
+          </li>
+
         </ul>
       </aside>
     </>
@@ -50,4 +74,3 @@ const SideBar = () => {
 };
 
 export default SideBar;
-

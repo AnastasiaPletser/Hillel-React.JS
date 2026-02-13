@@ -1,0 +1,121 @@
+.auth-page {
+  height: calc(100vh - 100px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #0f2a3a;
+}
+
+.auth {
+  width: 380px;
+  height: 470px;
+  padding: 45px 40px;
+  background: #f4e9d8;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.45);
+  border-left: 8px solid #e85a2a;
+  border-radius: 6px;
+  font-family: "DM Serif Text", Georgia, serif;
+  color: #1c1c1c;
+
+  &__tabs {
+    display: flex;
+    gap: 28px;
+    margin-bottom: 35px;
+    font-size: 24px;
+
+    a {
+      text-decoration: none;
+      color: #1c1c1c;
+      opacity: 0.45;
+      position: relative;
+      transition: 0.25s;
+
+      &:hover {
+        opacity: 0.8;
+      }
+
+      &.active {
+        opacity: 1;
+        color: #0f2a3a;
+
+        &::after {
+          content: "";
+          position: absolute;
+          left: 0;
+          bottom: -8px;
+          width: 100%;
+          height: 3px;
+          background: #1fa5a3; 
+          border-radius: 2px;
+        }
+      }
+    }
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+
+    input[type="email"],
+    input[type="password"] {
+      background: transparent;
+      border: none;
+      border-bottom: 2px solid #c9b79c;
+      padding: 10px 4px;
+      font-size: 15px;
+      transition: 0.25s;
+
+      &::placeholder {
+        color: #8a7f6a;
+      }
+
+      &:focus {
+        outline: none;
+        border-bottom: 2px solid #1fa5a3; 
+      }
+    }
+
+    button {
+      margin-top: 18px;
+      padding: 14px;
+      border: none;
+      background: #e85a2a; 
+      color: white;
+      font-size: 16px;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      transition: 0.25s;
+      border-radius: 4px;
+
+      &:hover {
+        background: #cf4d22;
+        transform: translateY(-1px);
+      }
+
+      &:active {
+        transform: translateY(1px);
+      }
+    }
+  }
+
+  &__checkbox {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: #5f5747;
+
+    input {
+      accent-color: #1fa5a3; 
+      cursor: pointer;
+    }
+  }
+  
+}
+ .card-books img {
+    width: 264px;
+  height: 470px;
+  object-fit: cover;
+  }
+

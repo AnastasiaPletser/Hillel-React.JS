@@ -5,10 +5,10 @@ const News = () => {
   return (
     <>
       <section className="news">
-        <div className="about_us">
+        <div className="news_ua">
           <h4>Новини:</h4>
         </div>
-        <div className="about_description">
+        <div className="news_description">
           <h4>5000 грн від держави = бібліотека для вашого школяра!</h4>
           <p>
             З 1 жовтня 2025 року державна програма «Пакунок школяра» розширює
