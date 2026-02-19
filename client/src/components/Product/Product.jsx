@@ -8,8 +8,7 @@ import "./Product.scss";
 const NO_IMAGE_PLACEHOLDER = "/images/no-image.png";
 
 const Product = ({ product }) => {
-  const { name, price } = product;
-
+  const { name, price, authorName} = product;
   const { addToCart } = useContext(CartContext);
   const { toggleFavorite, isFavorite } = useContext(FavoriteContext);
   const { user } = useContext(Context);
@@ -55,6 +54,7 @@ const Product = ({ product }) => {
 
         <div className="product-info">
           <h4 className="bookName">{name}</h4>
+          <h6 className="author">Автор: {authorName}</h6>
           <h6 className="price">Ціна: {price} грн.</h6>
         </div>
 

@@ -9,8 +9,6 @@ const GiftSertificates = () => {
           <h4>Подарункові сертифікати:</h4>
         </div>
         <div className="gift-sertificates_description">
-          {/* <h4>Подарункові сертифікати Librix:</h4> */}
-
           <p>
             <strong>Найкращий подарунок — це можливість вибору.</strong>
             <br></br>

@@ -6,10 +6,8 @@ class ProductController {
   async create(req, res) {
     try {
       const { name, price, description, year, author } = req.body;
-      // const { name, price, description, year, authorId } = req.body;
 
       if (!name || !price || !description || !author) {
-        // if (!name || !price || !description || !authorId) {
         return res.status(400).json({ message: "Усі поля обов'язкові" });
       }
 
@@ -37,7 +35,6 @@ class ProductController {
         description,
         year,
         author,
-        // authorId,
         imgUrl: fileName,
       });
 

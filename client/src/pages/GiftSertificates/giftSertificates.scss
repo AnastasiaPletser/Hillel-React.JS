@@ -1,6 +1,7 @@
 .gift-sertificates {
   display: flex;
   padding: 30px 60px;
+  background: #f5f1e8;
 
   .gift-sertificates_ua {
     width: 500px;
@@ -28,32 +29,94 @@
       padding-left: 35px;
     }
 
-      p {
-        font-family: Lato, serif;
+    p {
+      font-family: Lato, serif;
       font-size: 22px;
       font-style: normal;
       color: #333;
     }
 
-   ul {
-  list-style-type: disc;
-  padding-left: 50px;
-  color: #333;
-  font-size: 20px;
-  li{
-    list-style: none;
-  }
-}
+    ul, ol {
+      list-style-type: disc;
+      padding-left: 50px;
+      color: #333;
+      font-size: 20px;
 
-  ol {
-  list-style-type: disc;
-  padding-left: 50px;
-  color: #333;
-  font-size: 20px;
-  li{
-    list-style: none;
+      li {
+        list-style: none;
+      }
+    }
   }
-}
 
+  @media (max-width: 992px) {
+    flex-direction: column;
+    padding: 20px 40px;
+
+    .gift-sertificates_ua {
+      width: 100%;
+      padding-left: 0;
+      margin-bottom: 20px;
+
+      h4 {
+        font-size: 22px;
+      }
+    }
+
+    .gift-sertificates_description {
+      max-width: 100%;
+      padding-left: 0;
+
+      h4 {
+        font-size: 22px;
+        padding-left: 0;
+      }
+
+      p {
+        font-size: 20px;
+      }
+
+      ul, ol {
+        padding-left: 30px;
+        font-size: 18px;
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    padding: 15px 20px;
+
+    .gift-sertificates_ua h4,
+    .gift-sertificates_description h4 {
+      font-size: 20px;
+    }
+
+    .gift-sertificates_description p {
+      font-size: 18px;
+    }
+
+    .gift-sertificates_description ul,
+    .gift-sertificates_description ol {
+      padding-left: 20px;
+      font-size: 16px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    padding: 10px 15px;
+
+    .gift-sertificates_ua h4,
+    .gift-sertificates_description h4 {
+      font-size: 18px;
+    }
+
+    .gift-sertificates_description p {
+      font-size: 16px;
+    }
+
+    .gift-sertificates_description ul,
+    .gift-sertificates_description ol {
+      padding-left: 15px;
+      font-size: 14px;
+    }
   }
 }

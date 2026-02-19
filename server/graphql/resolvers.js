@@ -1,4 +1,5 @@
 import { GraphQLUpload } from "graphql-upload";
+import { Op } from "sequelize";
 import fs from "fs";
 import path from "path";
 import { Product } from "../models/models.js";
@@ -8,53 +9,50 @@ export const resolvers = {
 
   Query: {
     getAllProducts: async () => await Product.findAll(),
-    async getAllProd() {
-      let products = await Product.findAndCountAll({})
-      console.log("----Products----", products.rows)
-      return products.rows
-    },
-     
-      getProduct: async (_, arg) => { 
-        console.log("id", arg.id)
-        const product = await Product.findByPk(arg.id, 
-          {include: {all: true}}
-        )
-        return product
-      },
-
-      getProductWithAuthor: async (_, arg) => { 
-        console.log("id", arg.id)
-        const product = await Product.findByPk(arg.id, 
-          {include: {all: true}}
-        )
-        console.log("----Products----", product)
-        return product
-      },
+    async getAllProducts() {
+      const products = await Product.findAndCountAll();
+      return products.rows;
     },
 
+    getProduct: async (_, arg) => {
+      const product = await Product.findByPk(arg.id, {
+        include: { all: true },
+      });
+      return product;
+    },
+
+    getSearchProducts: async (_, { name }) => {
+      if (!name || !name.trim()) return [];
+
+      const search = name.trim();
+
+      const searchProducts = await Product.findAndCountAll({
+        where: { name: { [Op.iLike]: `%${search}%` } },
+        limit: 20,
+        order: [["name", "ASC"]],
+      });
+
+      return searchProducts.rows;
+    },
+  },
 
   Mutation: {
     createProduct: async (_, { input }) => {
-      console.log("****************************", typeof(input.imgUrl), input)
-     
       try {
-      // const { name, description, price, imgUrl, year, authorId } = input;
-       const { name, description, price, imgUrl, year, author } = input;
-      const product = await Product.create({
-        name,
-        description,
-        price,
-        imgUrl: Array.isArray(imgUrl) ? imgUrl : [],
-        year,
-        author,
-        // authorId
-      });
-      console.log("Товар створено", product)
-      return product
-    } catch (error) {
-      console.error(error);
-      throw new Error('Помилка при створенні продукту');
-    }
+        const { name, description, price, imgUrl, year, authorName } = input;
+        const product = await Product.create({
+          name,
+          description,
+          price,
+          imgUrl: Array.isArray(imgUrl) ? imgUrl : [],
+          year,
+          authorName,
+        });
+        return product;
+      } catch (error) {
+        console.error(error);
+        throw new Error("Помилка при створенні продукту");
+      }
     },
 
     uploadImage: async (_, { file }) => {
@@ -76,24 +74,25 @@ export const resolvers = {
       return `http://localhost:5001/uploads/${filename}`;
     },
 
- updateProduct: async (_, { id, input }, { models }) => {
-    const product = await models.Product.findByPk(id);
-    if (!product) throw new Error("Продукт не знайдено");
+    updateProduct: async (_, { input }) => {
+      try {
+        const product = await Product.update(input, {
+          where: {
+            id: input.id,
+          },
+        });
 
-    await product.update(input);
-    return product;
-  },
+        return product;
+      } catch (error) {
+        console.error(error);
+        throw new Error("Помилка при створенні продукту");
+      }
+    },
 
- removeProduct: async (_, { id }, { user }) => {
-  if (!user) {
-    throw new Error("Not authenticated");
-  }
-
-  await Product.destroy({ where: { id } });
-  return true;
-},
-
-  
+    removeProduct: async (_, { id }, { user }) => {
+      await Product.destroy({ where: { id } });
+      return true;
+    },
 
     uploadMultipleImages: async (_, { files }) => {
       const uploadDir = path.join(process.cwd(), "uploads");
@@ -117,8 +116,6 @@ export const resolvers = {
       }
 
       return uploadedUrls;
-    }
-  }
+    },
+  },
 };
-
-

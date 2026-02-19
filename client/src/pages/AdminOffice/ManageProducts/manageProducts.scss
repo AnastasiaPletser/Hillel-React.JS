@@ -23,6 +23,7 @@
       background: #ffd600;
       color: #000;
       border: none;
+      width: 175px;
       border-radius: 8px;
       padding: 8px 14px;
       font-weight: 600;
@@ -165,3 +166,133 @@
     }
   }
 }
+
+@media (max-width: 992px) {
+  .manage-products {
+    padding: 16px;
+
+    .top-actions {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .products-table {
+      thead th,
+      tbody td {
+        padding: 10px;
+        font-size: 13px;
+      }
+    }
+
+    .product-cell img {
+      width: 40px;
+      height: 40px;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .manage-products {
+
+    .products-table {
+      display: block;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+
+    .actions {
+      gap: 8px;
+
+      button {
+        font-size: 14px;
+      }
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .manage-products {
+
+    .products-table {
+      border-spacing: 0;
+    }
+
+    .products-table thead {
+      display: none;
+    }
+
+    .products-table tbody {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .products-table tbody tr {
+      display: flex;
+      flex-direction: column;
+      background: #2a2a2a;
+      padding: 12px;
+      border-radius: 12px;
+    }
+
+    .products-table tbody td {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 6px 0;
+      border: none;
+      font-size: 13px;
+    }
+
+    .products-table tbody td:nth-child(2)::before {
+      content: "Назва:";
+      color: #9b9b9b;
+      font-size: 12px;
+    }
+
+    .products-table tbody td:nth-child(3)::before {
+      content: "Ціна:";
+      color: #9b9b9b;
+      font-size: 12px;
+    }
+
+    .products-table tbody td:nth-child(4)::before {
+      content: "Автор:";
+      color: #9b9b9b;
+      font-size: 12px;
+    }
+
+    .products-table tbody td:nth-child(5)::before {
+      content: "Наявність:";
+      color: #9b9b9b;
+      font-size: 12px;
+    }
+
+    .products-table tbody td:nth-child(6)::before {
+      content: "Статус:";
+      color: #9b9b9b;
+      font-size: 12px;
+    }
+
+    .products-table tbody td:nth-child(7)::before {
+      content: "Дії:";
+      color: #9b9b9b;
+      font-size: 12px;
+    }
+
+    .product-cell {
+      gap: 8px;
+
+      img {
+        width: 36px;
+        height: 36px;
+      }
+    }
+
+    .actions {
+      justify-content: flex-end;
+    }
+  }
+}
+

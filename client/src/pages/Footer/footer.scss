@@ -8,18 +8,17 @@ $text-color: #fff;
 
 #footer {
   padding: 0 0 30px 0;
-  // color: $text-color;
   color: wheat;
   background-color: #0b3a53;
   font-size: 14px;
-  height: 440px;
 
   .footer-top {
-    // background: $bg-top;
     background-color: #17323d;
     border-top: 1px solid $border-light;
     border-bottom: 1px solid $border-dark;
-    padding: 60px 0 30px;
+    padding: 60px 0 10px;
+    display: flex;
+    justify-content: space-around;
 
     .footer-info {
       margin-bottom: 30px;
@@ -38,7 +37,7 @@ $text-color: #fff;
         font-size: 14px;
         line-height: 24px;
         font-family: "Playfair Display", serif;
-        color: $text-color;
+        color: #e8e5c1;
       }
     }
 
@@ -49,7 +48,7 @@ $text-color: #fff;
         align-items: center;
         justify-content: center;
         background: $bg-block;
-        color: $text-color;
+        color: #e8e5c1;
         width: 36px;
         height: 36px;
         margin-right: 4px;
@@ -67,7 +66,6 @@ $text-color: #fff;
       font-size: 16px;
       font-weight: 600;
       padding: 15px 10px;
-      color: $text-color;
     }
 
     .footer-links {
@@ -81,7 +79,6 @@ $text-color: #fff;
     li {
       display: flex;
       align-items: center;
-      // padding: 10px 0;
 
       &:first-child {
         padding-top: 0;
@@ -94,7 +91,7 @@ $text-color: #fff;
       }
 
       a {
-        color: $text-color;
+        color: #e8e5c1;
         text-decoration: none; 
         transition: 0.3s;
 
@@ -120,8 +117,6 @@ $text-color: #fff;
       form {
         display: flex;
         position: relative;
-        background: $bg-block;
-        border: 1px solid #454035;
 
         input[type="email"] {
           border: 0;
@@ -134,7 +129,6 @@ $text-color: #fff;
           top: -1px;
           right: -1px;
           bottom: -1px;
-          padding: 0 20px;
           border: 0;
           background: $accent;
           color: $text-color;
@@ -165,24 +159,67 @@ $text-color: #fff;
 }
 
 .footer-container {
-  max-width: 960px;
+  max-width: 1200px;
   margin: 0 auto;
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
+  align-items: flex-start;
+  gap: 40px;
+   flex-wrap: wrap;
+   text-align: left;
+   .col-Lg-3,
+  .col-lg-4,
+  .col-1g-2 {
+    flex: 1 1 220px; 
+    margin-bottom: 30px;
+  }
 
-  @media (max-width: 992px) {
-    flex-wrap: wrap;
-    margin: 0 80px;
+  @media (max-width: 1024px) {
+    max-width: 760px;
+    margin: 0 40px;
   }
 
   @media (max-width: 768px) {
     flex-direction: column;
     margin: 0 20px;
+    align-items: center;     
+    text-align: center;
+
+    .footer-links ul li {
+      justify-content: center;
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+    }
+
+    .footer-newsletter form {
+      flex-direction: column;
+
+      input[type="submit"] {
+        width: 100%;
+        margin-top: 10px;
+      }
+    }
   }
 
-  @media (max-width: 1024px) {
-    max-width: 760px;
-    margin: 0 120px;
+  @media (max-width: 480px) {
+    .footer-info h1.bookstore-title {
+      font-size: 20px;
+    }
+
+    .footer-links h4 {
+      font-size: 14px;
+    }
+
+    .social-links a {
+      width: 30px;
+      height: 30px;
+      font-size: 16px;
+    }
   }
 }
+
+
 

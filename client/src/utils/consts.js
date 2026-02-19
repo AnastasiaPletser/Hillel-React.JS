@@ -2,7 +2,6 @@ export const ADMIN_ROUTE = '/admin'
 export const LOGIN_ROUTE = '/login'
 export const REGISTRATION_ROUTE = '/registration'
 export const HOME_ROUTE = '/'
-// export const SHOP_ROUTE = '/shop'
 
 export const CART_PAGE_ROUTE = '/cart'
 export const FAVORITE_PAGE_ROUTE = '/favorites'
@@ -12,7 +11,6 @@ export const ABOUT_ROUTE = '/about'
 export const CONTACT_ROUTE = '/contact'
 
 export const ADD_PRODUCT_ROUTE = '/add-product'
-// export const EDIT_PRODUCT_ROUTE = '/admin/products/edit'
 
 export const NEWS_ROUTE = '/news'
 export const VACANCIES_ROUTE = '/vacancies'

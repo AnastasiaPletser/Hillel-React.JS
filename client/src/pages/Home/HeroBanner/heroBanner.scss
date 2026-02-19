@@ -1,41 +1,123 @@
-.container__top{
+.container__top {
   background-color: #f5f1e8;
   padding: 1px;
 }
-.content__top{
+
+.content__top {
   display: flex;
   justify-content: space-between;
-  height: 400px;
+  align-items: center;
+  gap: 40px;
+  min-height: 400px;
+  max-width: 1200px;
   border-radius: 1%;
-  margin: 30px 20px;
+  margin: 30px auto;   
+  padding: 0 20px;
 }
+
 .advertisement-left {
-  width: 600px;
+  flex: 1 1 450px;
+  max-width: 600px;
   text-align: center;
   font-family: "DM Serif Text", serif;
-  font-weight: 400;
   font-style: italic;
   color: #3b0009;
   padding: 20px;
 }
+
 .advertisement-left p {
   font-family: Georgia, serif;
 }
+
 .advertisement-right {
-  width: 800px;     
-  height: 300px;    
+  flex: 1 1 550px;
+  max-width: 800px;
+  height: 300px;
   position: relative;
-  margin-top: -21px;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: 16px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .advertisement-right img {
-  width: 100%;       
-  height: 100%;      
+  width: 100%;
+  height: 100%;
   object-fit: cover;
+  display: block;
+  border-radius: 12px;
 }
-.decor__line{
+
+.decor__line {
   width: 100%;
   height: 10px;
   background-color: #0b3a53;
+  margin-top: 20px;
 }
+
+@media (min-width: 1400px) {
+  .content__top {
+    max-width: 1300px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .content__top {
+    gap: 20px;
+    min-height: auto;
+  }
+
+  .advertisement-left {
+    flex: 1 1 50%;
+    padding: 10px;
+  }
+
+  .advertisement-right {
+    flex: 1 1 50%;
+    height: 260px;
+  }
+}
+
+@media (max-width: 768px) {
+  .content__top {
+    flex-direction: column;
+    text-align: center;
+    margin: 20px 12px;
+  }
+
+  .advertisement-left {
+    max-width: 100%;
+    padding: 0 10px;
+  }
+
+  .advertisement-right {
+    width: 100%;
+    max-width: 500px;
+    height: 240px;
+  }
+}
+
+@media (max-width: 480px) {
+  .content__top {
+    gap: 15px;
+  }
+
+  .advertisement-left {
+    font-size: 14px;
+    line-height: 1.4;
+  }
+
+  .advertisement-right {
+    height: 200px;
+  }
+
+  .decor__line {
+    height: 6px;
+    margin-top: 15px;
+  }
+}
+
 

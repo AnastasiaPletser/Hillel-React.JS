@@ -1,12 +1,13 @@
 .favorite {
-  max-width: 900px;
-  margin: 40px auto;
+  max-width: 100%;
+  padding: 60px;
+  background: #f5f1e8;
 }
 
 .header {
   display: grid;
   grid-template-columns: 1.6fr 0.6fr 40px;
-  background: #e9ecef;
+  background: #d9d4c9;
   padding: 14px 20px;
   font-weight: 600;
   font-size: 13px;
@@ -62,7 +63,7 @@
 }
 
 .addAllButton {
-  background: #2db84d;
+  background: #2e745c;
   color: white;
   border: none;
   padding: 12px 22px;
@@ -79,10 +80,10 @@
 
 .row {
   display: grid;
-  grid-template-columns: 1.6fr 0.6fr 160px;
+  grid-template-columns: 1.6fr -0.4fr 160px;
   align-items: center;
   padding: 18px 20px;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #e5e5e5;
 }
 
 .product {

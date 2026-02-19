@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   ABOUT_ROUTE,
   NEWS_ROUTE,
@@ -12,7 +12,10 @@ import {
 import "./footer.scss";
 import { NavLink } from "react-router-dom";
 
+
 export default function Footer() {
+    const [subscribed, setSubscribed] = useState(false);
+
   return (
     <footer id="footer">
       <div className="footer-top">
@@ -152,18 +155,23 @@ export default function Footer() {
               </ul>
             </div>
 
-            <div className="col-lg-4 col-md-6 footer-newsletter">
-              <h4>Підписатися на новини:</h4>
-              <p>Бути в курсі останніх подій та новин.</p>
-              <form action="" method="post">
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="Enter your email"
-                />
-                <input type="submit" value="Підписатися" />
-              </form>
-            </div>
+ <div className="col-lg-4 col-md-6 footer-newsletter">
+  <h4>Підписатися на новини:</h4>
+  <p>Бути в курсі останніх подій та новин.</p>
+  {subscribed ? (
+    <p>Дякуємо за підписку! </p>
+  ) : (
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        setSubscribed(true);
+      }}
+    >
+      <input type="email" name="email" placeholder="Enter your email" required />
+      <input type="submit" value="Підписатися" />
+    </form>
+  )}
+</div>
           </div>
         </div>
       </div>

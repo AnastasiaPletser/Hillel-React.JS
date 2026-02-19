@@ -4,6 +4,8 @@ import { CartContext } from "../../context/CartContext";
 import { useNavigate } from "react-router-dom";
 import styles from "./Favorite.module.scss";
 
+const NO_IMAGE_PLACEHOLDER = "/images/no-image.png";
+
 const Favorite = () => {
   const { favoriteItems, removeFromFavorite, clearFavorite } =
     useContext(FavoriteContext);
@@ -12,11 +14,10 @@ const Favorite = () => {
   const navigate = useNavigate();
 
   const addAllToCart = () => {
-    favoriteItems.forEach(item => addToCart(item));
+    favoriteItems.forEach((item) => addToCart(item));
 
-    clearFavorite(); 
-navigate("/cart");
-    alert("Всі товари додані у кошик");
+    clearFavorite();
+    navigate("/cart");
   };
 
   return (
@@ -37,13 +38,18 @@ navigate("/cart");
             {favoriteItems.map((item) => (
               <div key={item.id} className={styles.row}>
                 <div className={styles.product}>
-                  <img src={item.imgUrl} alt={item.name} />
+                  <img
+                    src={
+                      item?.imgUrl && item.imgUrl.length > 0
+                        ? item.imgUrl[0]
+                        : NO_IMAGE_PLACEHOLDER
+                    }
+                    alt={item.name}
+                  />
                   <span>{item.name}</span>
                 </div>
 
-                <div className={styles.price}>
-                  {item.price} грн
-                </div>
+                <div className={styles.price}>{item.price} грн</div>
 
                 <button
                   className={styles.remove}

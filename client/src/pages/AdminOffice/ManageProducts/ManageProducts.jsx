@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Container } from "react-bootstrap";
 import { useQuery, useMutation } from "@apollo/client";
-import SideBar from "../../../components/SideBar/SideBar.jsx";
 import EditProduct from "../../../components/EditProduct/EditProduct.js";
 import { GET_ALL_PRODUCTS } from "../../../graphql/query.js";
 import { REMOVE_PRODUCT } from "../../../graphql/mutations.js";
@@ -26,7 +25,7 @@ const ManageProducts = () => {
 
   const toggleSelect = (id) => {
     setSelected((prev) =>
-      prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]
+      prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id],
     );
   };
 
@@ -56,19 +55,25 @@ const ManageProducts = () => {
 
   const onDeleteSelected = async () => {
     if (!selected.length) return;
-    if (!window.confirm(`Видалити ${selected.length} товар(и)?`)) return;
+
+    const confirmed = window.confirm(
+      `Ви впевнені, що хочете видалити ${selected.length} товар(и)?`,
+    );
+    if (!confirmed) return;
 
     try {
       await Promise.all(
         selected.map((id) =>
           removeProduct({
             variables: { id },
-          })
-        )
+          }),
+        ),
       );
 
       refetch();
       setSelected([]);
+
+      alert(`Товар(и) успішно видалено`);
     } catch (err) {
       console.error(err);
       alert("Потрібна авторизація для видалення товарів");
@@ -78,9 +83,8 @@ const ManageProducts = () => {
   if (editingProduct) {
     return (
       <Container className="manage-products">
-        <SideBar />
         <EditProduct
-          product={editingProduct}
+          productId={editingProduct}
           onUpdated={() => {
             setEditingProduct(null);
           }}
@@ -92,8 +96,6 @@ const ManageProducts = () => {
 
   return (
     <Container fluid className="manage-products">
-      <SideBar />
-
       <div className="top-actions">
         <div className="delete-selected" onClick={onDeleteSelected}>
           Видалити вибране {selected.length > 0 && `(${selected.length})`}
@@ -113,14 +115,16 @@ const ManageProducts = () => {
             <th className="checkbox">
               <input
                 type="checkbox"
-                checked={selected.length === products.length && products.length > 0}
+                checked={
+                  selected.length === products.length && products.length > 0
+                }
                 onChange={toggleSelectAll}
               />
             </th>
             <th>Назва товару</th>
             <th>Ціна</th>
-            <th>Термін акції</th>
-            <th>Кількість</th>
+            <th>Автор</th>
+            <th>Наявність</th>
             <th>Статус</th>
             <th>Дії</th>
           </tr>
@@ -154,9 +158,13 @@ const ManageProducts = () => {
                   )}
                 </td>
 
-                <td>{prod.promoEndDate || "Відсутній"}</td>
+                <td>
+                  <div className="product-author">
+                    <span className="name">{prod.authorName}</span>
+                  </div>
+                </td>
 
-                <td>{prod.quantity || "—"} шт</td>
+                <td>{prod.quantity || "В наявності"} </td>
 
                 <td>
                   <span
@@ -164,16 +172,14 @@ const ManageProducts = () => {
                       prod.status === "PUBLISHED" ? "published" : "rejected"
                     }`}
                   >
-                    {prod.status === "PUBLISHED"
-                      ? "Опубліковано"
-                      : "Відхилено"}
+                    {prod.status === "PUBLISHED" ? "Опубліковано" : "Відхилено"}
                   </span>
                 </td>
 
                 <td className="actions">
                   <button
                     title="Редагувати"
-                    onClick={() => setEditingProduct(prod)}
+                    onClick={() => setEditingProduct(prod.id)}
                   >
                     ✏️
                   </button>
@@ -188,7 +194,6 @@ const ManageProducts = () => {
             );
           })}
         </tbody>
-
       </table>
     </Container>
   );

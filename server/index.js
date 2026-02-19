@@ -42,7 +42,6 @@ const start = async () => {
   try {
     await sequelize.authenticate();
     await sequelize.sync();
-    console.log("Database connected");
 
     const server = new ApolloServer({
       typeDefs,

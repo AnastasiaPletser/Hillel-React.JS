@@ -1,9 +1,13 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Products from "../Product/ProductList.jsx";
 import "./PaginatedProducts.css";
 
 export default function PaginatedProducts({ products, productsPerPage = 10 }) {
   const [currentPage, setCurrentPage] = useState(1);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [productsPerPage]);
 
   const totalPages = Math.ceil(products.length / productsPerPage);
 
@@ -18,11 +22,9 @@ export default function PaginatedProducts({ products, productsPerPage = 10 }) {
 
   return (
     <div className="paginated-products">
-        <div>
       <div className="products-grid">
         <Products products={currentProducts} />
       </div>
-</div>
       <div className="pagination">
         <button
           onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
@@ -44,10 +46,9 @@ export default function PaginatedProducts({ products, productsPerPage = 10 }) {
         <button
           onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
           disabled={currentPage === totalPages}
-          >
+        >
           →
         </button>
-            
       </div>
     </div>
   );

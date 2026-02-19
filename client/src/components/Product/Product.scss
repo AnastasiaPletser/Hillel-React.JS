@@ -1,22 +1,25 @@
 .product-card {
-   background: #eeeadd;
+  box-shadow: 0 4px 12px rgba(120, 105, 85, 0.25);
   border-radius: 12px;
-  padding: 16px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  cursor: pointer;
-  text-decoration: none;
+  max-height: 500px;
+  max-width: 300px;
 
     &:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
     }
   
+    .product-content{
+  padding: 16px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+  text-decoration: none;
+  position: relative;
+  overflow: visible;
+    }
     &__image {
-    width: 160px;
-    height: 200px;
+    width: 200px;
+    height: 300px;
     object-fit: cover;
     border-radius: 8px;
     margin-bottom: 12px;
@@ -27,17 +30,14 @@
       justify-content: flex-end;
       position: relative;
       color: #888;
-       transition: 0.25s;
-       margin: -15px 5px;
+      transition: 0.25s;
+      margin: -15px 5px;
 
-         &:hover {
-    transform: scale(1.15);
-  }
-
-  .heart.active {
-  color: #e63946; 
-}
+    .heart.active {
+       color: #e63946; 
+      }
     }
+
     .edit-image-preview {
       width: 100%;
       object-fit: cover;
@@ -50,22 +50,43 @@
       margin-top: 10px;
       text-align: left;
   
-      .bookName {
-        
-         font-size: 18px;
-        margin: 8px 0;
-        color: #333;
-        max-width: 180px; 
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        display: block;
+         .bookName {
+      font-size: 20px;
+      font-family: serif;
+      font-family: cursive;
+      margin: 8px 0;
+      color: #343a40;
+      max-width: 180px;
+      display: block;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      max-height: 22px; 
+      opacity: 0.9;
+      transition: max-height 0.35s ease, opacity 0.25s ease;
+
+      &:hover {
+         opacity: 1;
+        white-space: normal;
+        max-height: 200px; 
+        position: relative;
+        z-index: 10;
+        border-radius: 12px;
       }
-  
+    }
+
       p {
       font-size: 14px;
       color: #0b2a4a;
       text-align: center;
+      }
+
+      .author {
+        font-weight: bold;
+        font-size: 15px;
+        font-family: fangsong;
+        margin-top: 8px;
+        color: #233a45bf;
       }
   
       .price {
@@ -83,6 +104,7 @@
       margin-top: 10px;
   
       .add-cart-btn {
+         width: 100%;
          margin-top: 10px;
          padding: 8px 16px;
          border: none;
@@ -121,4 +143,112 @@
       }
     }
   }
-  
+  @media (max-width: 1024px) {
+  .product-card {
+    max-width: 260px;
+    max-height: 460px;
+
+    &__image {
+      width: 170px;
+      height: 255px;
+    }
+
+    .product-content {
+      padding: 14px;
+    }
+
+    .product-info {
+      .bookName {
+        font-size: 18px;
+        max-width: 160px;
+      }
+
+      .author,
+      .price {
+        font-size: 14px;
+      }
+    }
+
+    .product-buttons .add-cart-btn {
+      padding: 7px 14px;
+      font-size: 14px;
+    }
+  }
+}
+@media (max-width: 768px) {
+  .product-card {
+    max-width: 100%;
+    max-height: none;
+    border-radius: 10px;
+
+    &__image {
+      width: 130px;
+      height: 195px;
+      margin-bottom: 8px;
+    }
+
+    .product-content {
+      padding: 10px;
+    }
+
+    .product-info {
+      margin-top: 5px;
+
+      .bookName {
+        font-size: 15px;
+        max-width: 130px;
+        max-height: 18px;
+      }
+
+      p {
+        font-size: 12px;
+      }
+
+      .author {
+        font-size: 13px;
+      }
+
+      .price {
+        font-size: 14px;
+      }
+    }
+
+    .product-buttons {
+      gap: 6px;
+      margin-top: 6px;
+
+      .add-cart-btn {
+        padding: 6px 10px;
+        font-size: 13px;
+        border-radius: 5px;
+      }
+    }
+  }
+}
+@media (max-width: 480px) {
+  .product-card {
+    box-shadow: 0 2px 6px rgba(120, 105, 85, 0.2);
+
+    &__image {
+      width: 110px;
+      height: 165px;
+    }
+
+    .product-info {
+      .bookName {
+        font-size: 14px;
+        max-width: 110px;
+      }
+
+      .author,
+      .price {
+        font-size: 12px;
+      }
+    }
+
+    .product-buttons .add-cart-btn {
+      font-size: 12px;
+      padding: 5px 8px;
+    }
+  }
+}

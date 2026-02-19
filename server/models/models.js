@@ -20,32 +20,28 @@ const Product = sequelize.define('product', {
   id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
   name: { type: DataTypes.STRING, unique: true, allowNull: false },
   price: { type: DataTypes.FLOAT, allowNull: true },
-  imgUrl: { type: DataTypes.ARRAY(DataTypes.STRING), allowNull: true, defaultValue: [], 
+  imgUrl: { 
+    type: DataTypes.ARRAY(DataTypes.STRING), 
+    allowNull: true, 
+    defaultValue: [],
     get() {
       const rawValue = this.getDataValue('imgUrl');
       if (typeof rawValue === 'string') {
-        try {
-          return JSON.parse(rawValue); 
-        } catch {
-          return []; 
-        }
+        try { return JSON.parse(rawValue); } 
+        catch { return []; }
       }
       return rawValue || [];
     },
     set(value) {
-      if (Array.isArray(value)) {
-        this.setDataValue('imgUrl', value);
-      } else if (typeof value === 'string') {
-        this.setDataValue('imgUrl', [value]);
-      } else {
-        this.setDataValue('imgUrl', []);
-      }
+      if (Array.isArray(value)) this.setDataValue('imgUrl', value);
+      else if (typeof value === 'string') this.setDataValue('imgUrl', [value]);
+      else this.setDataValue('imgUrl', []);
     }
   },
-  description: { type: DataTypes.STRING, allowNull: true },
+  description: { type: DataTypes.TEXT, allowNull: true }, 
   year: { type: DataTypes.INTEGER, allowNull: true },
   authorName: { type: DataTypes.STRING, allowNull: true },
-  authorId: { type: DataTypes.INTEGER, allowNull: true}
+  authorId: { type: DataTypes.INTEGER, allowNull: true }
 });
 
 const Author = sequelize.define('author', {
@@ -60,7 +56,7 @@ Cart.hasMany(CartProduct);
 CartProduct.belongsTo(Cart);
 
 Author.hasMany(Product);
-Product.belongsTo(Author); 
+Product.belongsTo(Author);
 
 Product.hasMany(CartProduct);
 CartProduct.belongsTo(Product);
