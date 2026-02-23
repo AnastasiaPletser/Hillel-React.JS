@@ -1,21 +1,27 @@
 import React, { useState } from "react";
 import { Container } from "react-bootstrap";
 import { useQuery, useMutation } from "@apollo/client";
-import EditProduct from "../../../components/EditProduct/EditProduct.js";
 import { GET_ALL_PRODUCTS } from "../../../graphql/query.js";
 import { REMOVE_PRODUCT } from "../../../graphql/mutations.js";
 import { useNavigate } from "react-router-dom";
-import { ADD_PRODUCT_ROUTE } from "../../../utils/consts.js";
+import {
+  ADD_PRODUCT_ROUTE,
+  EDIT_PRODUCT_ROUTE,
+} from "../../../utils/consts.js";
 
+import OrderSuccessModal from "../../../components/OrderSuccessModal/OrderSuccessModal";
 import "./manageProducts.scss";
 
 const ManageProducts = () => {
-  const [editingProduct, setEditingProduct] = useState(null);
   const [selected, setSelected] = useState([]);
+  const [successModal, setSuccessModal] = useState({
+    open: false,
+    message: "",
+  });
+
   const navigate = useNavigate();
 
   const { loading, error, data, refetch } = useQuery(GET_ALL_PRODUCTS);
-
   const [removeProduct] = useMutation(REMOVE_PRODUCT);
 
   if (loading) return <p>Loading...</p>;
@@ -25,7 +31,7 @@ const ManageProducts = () => {
 
   const toggleSelect = (id) => {
     setSelected((prev) =>
-      prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id],
+      prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]
     );
   };
 
@@ -47,9 +53,18 @@ const ManageProducts = () => {
 
       refetch();
       setSelected((prev) => prev.filter((x) => x !== id));
+
+      setSuccessModal({
+        open: true,
+        message: "Товар успішно видалено",
+      });
     } catch (err) {
       console.error(err);
-      alert("Потрібна авторизація для видалення товару");
+
+      setSuccessModal({
+        open: true,
+        message: "Потрібна авторизація для видалення товару",
+      });
     }
   };
 
@@ -57,8 +72,9 @@ const ManageProducts = () => {
     if (!selected.length) return;
 
     const confirmed = window.confirm(
-      `Ви впевнені, що хочете видалити ${selected.length} товар(и)?`,
+      `Ви впевнені, що хочете видалити ${selected.length} товар(и)?`
     );
+
     if (!confirmed) return;
 
     try {
@@ -66,33 +82,26 @@ const ManageProducts = () => {
         selected.map((id) =>
           removeProduct({
             variables: { id },
-          }),
-        ),
+          })
+        )
       );
 
       refetch();
       setSelected([]);
 
-      alert(`Товар(и) успішно видалено`);
+      setSuccessModal({
+        open: true,
+        message: "Товар(и) успішно видалено",
+      });
     } catch (err) {
       console.error(err);
-      alert("Потрібна авторизація для видалення товарів");
+
+      setSuccessModal({
+        open: true,
+        message: "Потрібна авторизація для видалення товарів",
+      });
     }
   };
-
-  if (editingProduct) {
-    return (
-      <Container className="manage-products">
-        <EditProduct
-          productId={editingProduct}
-          onUpdated={() => {
-            setEditingProduct(null);
-          }}
-          onClose={() => setEditingProduct(null)}
-        />
-      </Container>
-    );
-  }
 
   return (
     <Container fluid className="manage-products">
@@ -164,25 +173,33 @@ const ManageProducts = () => {
                   </div>
                 </td>
 
-                <td>{prod.quantity || "В наявності"} </td>
+                <td>{prod.quantity || "В наявності"}</td>
 
                 <td>
                   <span
                     className={`status ${
-                      prod.status === "PUBLISHED" ? "published" : "rejected"
+                      prod.status === "PUBLISHED"
+                        ? "published"
+                        : "rejected"
                     }`}
                   >
-                    {prod.status === "PUBLISHED" ? "Опубліковано" : "Відхилено"}
+                    {prod.status === "PUBLISHED"
+                      ? "Опубліковано"
+                      : "Відхилено"}
                   </span>
                 </td>
 
                 <td className="actions">
                   <button
+                    className="edit-product"
+                    onClick={() =>
+                      navigate(`${EDIT_PRODUCT_ROUTE}/${prod.id}`)
+                    }
                     title="Редагувати"
-                    onClick={() => setEditingProduct(prod.id)}
                   >
                     ✏️
                   </button>
+
                   <button
                     title="Видалити"
                     onClick={() => onDeleteProduct(prod.id)}
@@ -195,6 +212,18 @@ const ManageProducts = () => {
           })}
         </tbody>
       </table>
+
+      <OrderSuccessModal
+        open={successModal.open}
+        onClose={() =>
+          setSuccessModal({
+            open: false,
+            message: "",
+          })
+        }
+        title="Успіх!"
+        message={successModal.message}
+      />
     </Container>
   );
 };

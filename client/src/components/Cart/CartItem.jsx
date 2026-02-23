@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { CartContext } from "../../context/CartContext";
 import styles from "./Cart.module.scss";
+import { PRODUCT_DETAILS_ROUTE } from "../../utils/consts";
 
 const NO_IMAGE_PLACEHOLDER = "/images/no-image.png";
 
@@ -11,14 +12,19 @@ const CartItem = ({ item }) => {
   return (
     <div className={styles.row}>
       <div className={styles.product}>
-        <img
-          src={
-            item?.imgUrl && item.imgUrl.length > 0
-              ? item.imgUrl[0]
-              : NO_IMAGE_PLACEHOLDER
-          }
-          alt={item.name}
-        />
+        <a
+          href={PRODUCT_DETAILS_ROUTE + "/" + item.id}
+          className="products__image"
+        >
+          <img
+            src={
+              item?.imgUrl && item.imgUrl.length > 0
+                ? item.imgUrl[0]
+                : NO_IMAGE_PLACEHOLDER
+            }
+            alt={item.name}
+          />
+        </a>
         <span>{item.name}</span>
       </div>
 

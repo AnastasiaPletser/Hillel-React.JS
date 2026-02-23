@@ -3,7 +3,7 @@ import { CartContext } from "../../context/CartContext";
 import { FavoriteContext } from "../../context/FavoriteContext";
 import { Context } from "../../index";
 import { PRODUCT_DETAILS_ROUTE } from "../../utils/consts";
-import "./Product.scss";
+import "./product.scss";
 
 const NO_IMAGE_PLACEHOLDER = "/images/no-image.png";
 

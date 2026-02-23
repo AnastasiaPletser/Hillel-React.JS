@@ -1,14 +1,18 @@
 import { useEffect } from "react";
 import styles from "./OrderSuccessModal.module.scss";
 
-export default function OrderSuccessModal({ open, onClose }) {
-
+export default function OrderSuccessModal({
+  open,
+  onClose,
+  title = "Дякуємо!",
+  message = "Ваше замовлення оформлено!",
+}) {
   useEffect(() => {
     if (!open) return;
 
     const timer = setTimeout(() => {
       onClose();
-    }, 1500);
+    }, 1800);
 
     return () => clearTimeout(timer);
   }, [open, onClose]);
@@ -19,8 +23,8 @@ export default function OrderSuccessModal({ open, onClose }) {
     <div className={styles.overlay}>
       <div className={styles.modal}>
         <div className={styles.icon}>✓</div>
-        <h2>Дякуємо!</h2>
-        <p>Ваше замовлення оформлено!</p>
+        <h2>{title}</h2>
+        <p>{message}</p>
       </div>
     </div>
   );

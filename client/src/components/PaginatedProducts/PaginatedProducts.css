@@ -67,7 +67,7 @@
     transition: all 0.2s ease;
 
     &:hover:not(:disabled) {
-      background: #f3efe6;
+      background: #1b5448;
       transform: translateY(-1px);
     }
 

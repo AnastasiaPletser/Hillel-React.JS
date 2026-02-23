@@ -11,6 +11,7 @@ export const ABOUT_ROUTE = '/about'
 export const CONTACT_ROUTE = '/contact'
 
 export const ADD_PRODUCT_ROUTE = '/add-product'
+export const EDIT_PRODUCT_ROUTE = '/edit-product'
 
 export const NEWS_ROUTE = '/news'
 export const VACANCIES_ROUTE = '/vacancies'

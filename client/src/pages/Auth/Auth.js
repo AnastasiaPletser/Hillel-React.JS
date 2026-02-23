@@ -1,12 +1,17 @@
 import React, { useContext, useState } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
-import { LOGIN_ROUTE, REGISTRATION_ROUTE, HOME_ROUTE } from "../../utils/consts";
+import {
+  LOGIN_ROUTE,
+  REGISTRATION_ROUTE,
+  HOME_ROUTE,
+} from "../../utils/consts";
 import { login, registration } from "../../http/userAPI";
 import { observer } from "mobx-react-lite";
 import { Context } from "../../index";
+import { validateAuth } from "../../utils/authValidation";
 import "./auth.scss";
 
-const booksSocial = "/images/Books-social.jpg"
+const booksSocial = "/images/Books-social.jpg";
 
 const Auth = observer(() => {
   const { user } = useContext(Context);
@@ -18,14 +23,23 @@ const Auth = observer(() => {
   const [password, setPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
   const [agree, setAgree] = useState(false);
+  const [errors, setErrors] = useState({});
 
   const click = async (e) => {
     e.preventDefault();
 
-    if (!isLogin&&!agree) return alert("Потрібно погодитись з обробкою даних");
+    const validationErrors = validateAuth({
+      email,
+      password,
+      repeatPassword,
+      agree,
+      isLogin,
+    });
 
-    if (!isLogin && password !== repeatPassword)
-      return alert("Паролі не співпадають");
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
 
     try {
       let data;
@@ -41,22 +55,27 @@ const Auth = observer(() => {
     } catch (e) {
       const message =
         e.response?.data?.message || e.message || "Щось пішло не так";
-      alert(message);
+      setErrors({ server: message });
     }
   };
 
   return (
     <div className="auth-page">
       <div className="card-books">
- <img src={ booksSocial } alt="" />
+        <img src={booksSocial} alt="books" />
       </div>
+
       <div className="auth">
         <div className="auth__tabs">
+          
           <NavLink to={LOGIN_ROUTE} className={isLogin ? "active" : ""}>
             Вхід
           </NavLink>
 
-          <NavLink to={REGISTRATION_ROUTE} className={!isLogin ? "active" : ""}>
+          <NavLink
+            to={REGISTRATION_ROUTE}
+            className={!isLogin ? "active" : ""}
+          >
             Реєстрація
           </NavLink>
         </div>
@@ -66,45 +85,75 @@ const Auth = observer(() => {
             type="email"
             placeholder="e-mail"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
+            onChange={(e) => {
+              setEmail(e.target.value);
+              setErrors((prev) => ({ ...prev, email: null, server: null }));
+            }}
           />
+          {errors.email && (
+            <div className="auth__error">{errors.email}</div>
+          )}
 
           <input
             type="password"
             placeholder="Введіть пароль"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
+            onChange={(e) => {
+              setPassword(e.target.value);
+              setErrors((prev) => ({ ...prev, password: null, server: null }));
+            }}
           />
+          {errors.password && (
+            <div className="auth__error">{errors.password}</div>
+          )}
 
           {!isLogin && (
             <>
-            <input
-              type="password"
-              placeholder="Повторіть пароль"
-              value={repeatPassword}
-              onChange={(e) => setRepeatPassword(e.target.value)}
-              required
-            />
-            
-            <label className="auth__checkbox">
-            <input
-              type="checkbox"
-              checked={agree}
-              onChange={(e) => setAgree(e.target.checked)}
-            />
-            <span>Я погоджуюсь на обробку персональних даних</span>
-          </label>
-           </>
-          )}
+              <input
+                type="password"
+                placeholder="Повторіть пароль"
+                value={repeatPassword}
+                onChange={(e) => {
+                  setRepeatPassword(e.target.value);
+                  setErrors((prev) => ({
+                    ...prev,
+                    repeatPassword: null,
+                  }));
+                }}
+              />
+              {errors.repeatPassword && (
+                <div className="auth__error">
+                  {errors.repeatPassword}
+                </div>
+              )}
 
-           
-          
+              <label className="auth__checkbox">
+                <input
+                  type="checkbox"
+                  checked={agree}
+                  onChange={(e) => {
+                    setAgree(e.target.checked);
+                    setErrors((prev) => ({ ...prev, agree: null }));
+                  }}
+                />
+                <span>
+                  Я погоджуюсь на обробку персональних даних
+                </span>
+              </label>
+
+              {errors.agree && (
+                <div className="auth__error">{errors.agree}</div>
+              )}
+            </>
+          )}
 
           <button type="submit">
             {isLogin ? "Увійти" : "Зареєструватися"}
           </button>
+
+          {errors.server && (
+            <div className="auth__error">{errors.server}</div>
+          )}
         </form>
       </div>
     </div>

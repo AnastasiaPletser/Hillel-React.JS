@@ -6,6 +6,7 @@ import Favorite from "./components/Favorite/Favorite";
 import About from "./pages/About/About";
 import Contact from "./pages/Contact/Contact";
 import AddProduct from "./components/AddProduct/AddProduct";
+import EditProduct from "./components/EditProduct/EditProduct";
 import ProductDeteils from "./pages/ProductDetails/ProductDetails";
 import Admin from "./pages/AdminOffice/Admin";
 import PageNotFound from "./pages/PageNotFound";
@@ -17,9 +18,6 @@ import Return from "./pages/Return/Return";
 import Bonus from "./pages/Bonus/Bonus";
 import GiftSertificates from "./pages/GiftSertificates/GiftSertificates";
 import ManageProducts from "./pages/AdminOffice/ManageProducts/ManageProducts";
-// import Users from "./pages/AdminOffice/Users/Users";
-// import Settings from "./pages/AdminOffice/Settings/Settings";
-import EditProduct from "./components/EditProduct/EditProduct";
 
 const {
   LOGIN_ROUTE,
@@ -30,6 +28,7 @@ const {
   ABOUT_ROUTE,
   CONTACT_ROUTE,
   ADD_PRODUCT_ROUTE,
+  EDIT_PRODUCT_ROUTE,
   PRODUCT_DETAILS_ROUTE,
   ADMIN_ROUTE,
   PAGE_NOT_FOUND_ROUTE,
@@ -41,16 +40,11 @@ const {
   BONUS_ROUTE,
   GIFT_SERTIFICATES_ROUTE,
   MANAGE_PRODUCTS_ROUTE,
-  // USERS_ROUTE,
-  // SETTINGS_ROUTE,
-  EDIT_PRODUCT_ROUTE
 } = ROUTES;
 
 export const adminRoutes = [
   { path: ADMIN_ROUTE, element: <Admin /> },
   { path: MANAGE_PRODUCTS_ROUTE, element: <ManageProducts /> },
-  // { path: USERS_ROUTE, element: <Users /> },
-  // { path: SETTINGS_ROUTE, element: <Settings /> },
   { path: ADD_PRODUCT_ROUTE, element: <AddProduct /> },
   { path: `${EDIT_PRODUCT_ROUTE}/:id`, element: <EditProduct /> },
 ];

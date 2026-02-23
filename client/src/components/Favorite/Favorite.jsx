@@ -3,6 +3,7 @@ import { FavoriteContext } from "../../context/FavoriteContext";
 import { CartContext } from "../../context/CartContext";
 import { useNavigate } from "react-router-dom";
 import styles from "./Favorite.module.scss";
+import { PRODUCT_DETAILS_ROUTE } from "../../utils/consts";
 
 const NO_IMAGE_PLACEHOLDER = "/images/no-image.png";
 
@@ -38,14 +39,19 @@ const Favorite = () => {
             {favoriteItems.map((item) => (
               <div key={item.id} className={styles.row}>
                 <div className={styles.product}>
-                  <img
-                    src={
-                      item?.imgUrl && item.imgUrl.length > 0
-                        ? item.imgUrl[0]
-                        : NO_IMAGE_PLACEHOLDER
-                    }
-                    alt={item.name}
-                  />
+                  <a
+                    href={PRODUCT_DETAILS_ROUTE + "/" + item.id}
+                    className="products__image"
+                  >
+                    <img
+                      src={
+                        item?.imgUrl && item.imgUrl.length > 0
+                          ? item.imgUrl[0]
+                          : NO_IMAGE_PLACEHOLDER
+                      }
+                      alt={item.name}
+                    />
+                  </a>
                   <span>{item.name}</span>
                 </div>
 
